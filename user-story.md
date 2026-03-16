@@ -5,7 +5,7 @@
 As a **museum shop manager**, I want to see how visitor behavior 
 from ticketing and footfall connects to retail sales, so that I 
 can make better decisions about product placement, inventory and 
-timing — without manually combining data from multiple tools.
+timing, without manually combining data from multiple tools.
 
 ---
 
