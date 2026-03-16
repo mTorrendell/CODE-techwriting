@@ -1,16 +1,16 @@
 # VITRO
 ### Retail intelligence for mid-size European museums
 
-Every museum visit generates signals — tickets scanned, products 
+Every museum visit generates signals, tickets scanned, products 
 sold, members logged, spaces counted. That data lives in five 
 separate systems that never talk to each other. VITRO is the 
 intelligence layer that connects them.
 
 Built for cultural institutions with 20,000–100,000 annual visitors, 
 VITRO surfaces actionable retail insights from data they already 
-have — without replacing a single tool they use today.
+have, without replacing a single tool they use today.
 
-> *The data was always there. VITRO just makes it readable.*
+> *The data is there. VITRO just makes it readable.*
 
 ---
 
@@ -18,7 +18,7 @@ have — without replacing a single tool they use today.
 
 Museum shop managers currently open multiple tools, export to 
 spreadsheets, and make gut decisions. VITRO connects ticketing, 
-POS, CRM, footfall and web analytics into one unified view — and 
+POS, CRM, footfall and web analytics into one unified view. It 
 uses AI to surface what it means and what to do next.
 
 ## Who is it for?
