@@ -15,9 +15,9 @@ ticketing, retail, CRM, footfall sensors, and web analytics. Each
 system captures one part of the visitor picture. None of them talk 
 to each other.
 
-This means a visitor can appear across all five sources — browsing 
+This means a visitor can appear across all five sources, browsing 
 the online shop, buying a ticket, scanning at the door, purchasing 
-a book, being a registered member — and no system connects those 
+a book, being a registered member, and no system connects those 
 five moments into one picture.
 
 The shop manager opens multiple tools, exports to spreadsheets, and 
@@ -56,7 +56,7 @@ VITRO at any time without losing any data.
 
 ### The unified visitor
 
-The central concept in VITRO is the unified visitor — a single 
+The central concept in VITRO is the unified visitor, a single 
 record that connects what one person did across all five data 
 sources. Where possible, VITRO links a retail transaction to a 
 ticket purchase to a CRM record. Where it cannot make that link 

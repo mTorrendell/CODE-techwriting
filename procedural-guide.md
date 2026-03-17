@@ -80,5 +80,3 @@ exhibition merchandise 48 hours before future openings."*
 
 ---
 
-*SE_07 Technical Documentation — Code University Berlin, 2026*  
-*Project by Mercedes Torrendell*
