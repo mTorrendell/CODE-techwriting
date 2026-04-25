@@ -44,7 +44,7 @@ A person who participates in creative or intellectual work but does not actively
 **Needs**
 
 - A way to see their position in a network without self-promotion  
-- A system that reflects participation rather than activity  
+- A system that reflects participation rather than online activity
 - Recognition through contribution, not performance  
 
 **Relevance to Vínculo**
@@ -87,7 +87,7 @@ A person who actively collaborates across projects and roles within creative or 
 
 **Relevance to Vínculo**
 
-Vínculo enables this user to document and reveal collaboration by naming participants and roles, making the network of shared work visible.
+Vínculo allows this user to reveal collaboration by naming participants and roles, making the network of shared work visible.
 
 It reflects how work is actually made — collectively.
 
@@ -97,4 +97,6 @@ It reflects how work is actually made — collectively.
 
 Both personas are already part of a network, but that network is not visible in existing systems.
 
-Vínculo reveals connections through shared participation in real projects and organizations.
+Vínculo makes these connections visible and navigable through shared participation in real projects and organizations.
+
+By tracing these paths, users can discover new people, not through popularity, but through the work that connects them.
