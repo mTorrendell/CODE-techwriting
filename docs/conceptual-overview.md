@@ -4,7 +4,8 @@
 
 This document explains how Vínculo is structured as a system.
 
-It focuses on how connections are formed, how the network is modeled, and how its components relate to each other.
+Vínculo is a network that represents how people are connected through shared work.  
+This overview focuses on how those connections are formed, how the network is modeled, and how its components relate to each other.
 
 ---
 
@@ -45,6 +46,15 @@ These relationships form the edges of the network.
 
 Each edge includes a **role**, which describes how the connection exists (e.g. editor, member, contributor).
 
+
+## Diagram — Network Structure
+
+Person ──(role)──> Project ──(belongs to)──> Organization  
+   ↑                          ↓  
+ (role)                    (role)  
+   └────────── Person ───────┘
+
+   
 ---
 
 ## Network structure
@@ -80,7 +90,7 @@ The network grows through user contribution:
 - participants are named and assigned roles  
 - new nodes are created when needed  
 
-Unclaimed participants appear as nodes and can later be claimed.
+Unclaimed participants appear as ghost nodes and can later be claimed.
 
 ---
 

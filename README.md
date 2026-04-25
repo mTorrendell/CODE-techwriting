@@ -65,12 +65,29 @@ This repository contains the technical documentation for the system and its conc
 
 ---
 
+## Prototype
+
+The interactive prototype can be accessed by opening:
+
+- [index.html](index.html)
+
+To view it:
+- download or clone the repository  
+- open `index.html` in any web browser  
+
+The prototype demonstrates how users explore connections through shared projects and organizations.
+
+---
+
 ## Documentation
 
-- [Proto Persona](proto-persona.md) who this is for  
-- [User Story](user-story.md) what they are trying to do  
-- [Procedural Guide](procedural-guide.md) how to enter and use Vínculo  
-- [Conceptual Overview](conceptual-overview.md) what Vínculo is and why it exists  
+- **Docs folder**: [`/docs`](docs/)
+- [Proto Persona](docs/proto-persona.md) who this is for  
+- [User Story](docs/user-story.md) what they are trying to do  
+- [Procedural Guide](docs/procedural-guide.md) how to enter and use Vínculo  
+- [Conceptual Overview](docs/conceptual-overview.md) what Vínculo is and why it exists  
+- [Glossary](docs/glossary.md) key terms  
+- [Contributing](docs/contributing.md) how to propose edits  
 
 ---
 

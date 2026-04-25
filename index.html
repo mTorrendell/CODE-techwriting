@@ -1,0 +1,2804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vínculo — concept demo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #1A1612;
+  --bg2: #221E1A;
+  --bg3: #2B2723;
+  --bg4: #34302B;
+  --ink: #F0ECE2;
+  --ink2: #C5BFB3;
+  --muted: #8A8478;
+  --muted2: #6B655B;
+  --line: rgba(240,236,226,0.08);
+  --line2: rgba(240,236,226,0.16);
+  --line3: rgba(240,236,226,0.28);
+  --warm: #D08850;
+  --warm2: #E6A268;
+  --warmg: rgba(208,136,80,0.14);
+  --green: #8FA66B;
+  --green2: #A8C087;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* subtle grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(240,236,226,0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,236,226,0.022) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+.screen.on { display: flex; animation: fadeIn .5s ease both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.demo-banner {
+  position: fixed; top: 0; left: 0; right: 0;
+  text-align: center;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted2); padding: 7px;
+  z-index: 100; pointer-events: none;
+}
+
+/* ════════════════════════════════════════
+   SCREEN 1 — EMAIL
+═══════════════════════════════════════ */
+#s-email {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 24px;
+  overflow-y: auto;
+}
+.email-frame {
+  width: 100%; max-width: 580px;
+  background: var(--bg2);
+  border: 0.5px solid var(--line2);
+  border-radius: 4px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+  overflow: hidden;
+}
+.email-head {
+  padding: 22px 28px;
+  border-bottom: 0.5px solid var(--line);
+  background: var(--bg3);
+}
+.eh-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.eh-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); width: 50px;
+}
+.eh-val { font-size: 13px; color: var(--ink2); }
+.eh-from { color: var(--ink); font-weight: 500; font-family: var(--serif); font-style: italic; font-size: 15px; }
+.eh-subj {
+  font-family: var(--serif); font-size: 22px; font-weight: 400;
+  color: var(--ink); margin-top: 14px; line-height: 1.25;
+}
+.email-body {
+  padding: 32px 28px;
+  font-family: var(--serif); font-size: 17px; line-height: 1.65;
+  color: var(--ink);
+}
+.email-body p { margin-bottom: 18px; }
+.email-body p.sig {
+  font-style: italic; color: var(--ink2); font-size: 14px;
+  margin-top: 28px; margin-bottom: 0;
+}
+.email-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--warm); border: none;
+  color: var(--bg);
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 14px 26px; border-radius: 2px; cursor: pointer;
+  margin-top: 16px;
+  transition: background .2s;
+}
+.email-cta:hover { background: var(--warm2); }
+.email-cta svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+.email-foot {
+  padding: 16px 28px;
+  border-top: 0.5px solid var(--line);
+  background: var(--bg2);
+  font-family: var(--mono); font-size: 10px;
+  color: var(--muted2); font-style: italic;
+}
+.email-tag {
+  display: inline-block;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--warm); padding: 4px 8px;
+  border: 0.5px solid rgba(208,136,80,0.35);
+  border-radius: 2px;
+  margin-bottom: 18px;
+}
+.email-italic { font-style: italic; color: var(--warm2); }
+
+/* ════════════════════════════════════════
+   SCREEN 2 — MAP
+═══════════════════════════════════════ */
+#s-map {
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+}
+
+.map-topbar {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 50px;
+  background: rgba(26,22,18,0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 0.5px solid var(--line);
+  display: flex; align-items: center; padding: 0 22px;
+  z-index: 50;
+}
+.tb-logo {
+  font-family: var(--serif); font-size: 22px; font-weight: 400;
+  letter-spacing: -.01em;
+}
+.tb-logo em { font-style: italic; color: var(--warm); }
+.tb-sep { width: 1px; height: 22px; background: var(--line2); margin: 0 22px; }
+.tb-status {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+  color: var(--muted); text-transform: uppercase;
+  transition: color .4s;
+}
+.tb-status.live { color: var(--warm); }
+.tb-spacer { flex: 1; }
+.tb-claim-btn {
+  background: var(--warm); border: none; color: var(--bg);
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 9px 16px; border-radius: 2px; cursor: pointer;
+  display: none;
+  transition: background .2s;
+}
+.tb-claim-btn:hover { background: var(--warm2); }
+.tb-claim-btn.show { display: inline-block; }
+
+.tb-add-btn {
+  background: transparent; border: 0.5px solid var(--warm);
+  color: var(--warm);
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  letter-spacing: .08em; text-transform: lowercase;
+  padding: 8px 14px; border-radius: 2px; cursor: pointer;
+  margin-right: 10px;
+  display: none;
+  transition: all .2s;
+}
+.tb-add-btn:hover { background: var(--warm); color: var(--bg); }
+.tb-add-btn.show { display: inline-block; }
+
+/* CREATE PANEL */
+.create-panel {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 480px;
+  max-width: 100vw;
+  background: var(--bg2);
+  border-left: 0.5px solid var(--line2);
+  z-index: 30;
+  transform: translateX(110%);
+  transition: transform .42s cubic-bezier(.22,.7,.18,1);
+  display: flex; flex-direction: column;
+  box-shadow: -20px 0 60px rgba(0,0,0,0.45);
+}
+.create-panel.on { transform: translateX(0); }
+
+.cp-head {
+  padding: 22px 26px 18px;
+  border-bottom: 0.5px solid var(--line);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  flex-shrink: 0;
+}
+.cp-eyebrow {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--warm); margin-bottom: 8px;
+}
+.cp-h {
+  font-family: var(--serif); font-size: 24px; font-weight: 300; line-height: 1.2;
+  color: var(--ink);
+}
+.cp-close {
+  background: transparent; border: 0.5px solid var(--line2);
+  color: var(--ink2);
+  width: 32px; height: 32px; border-radius: 50%;
+  font-size: 13px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all .2s;
+}
+.cp-close:hover { border-color: var(--warm); color: var(--warm); }
+
+.cp-body {
+  flex: 1; overflow-y: auto;
+  padding: 20px 26px 40px;
+}
+.cp-body::-webkit-scrollbar { width: 5px; }
+.cp-body::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 3px; }
+
+.cp-section {
+  margin-bottom: 22px;
+}
+.cp-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); display: block; margin-bottom: 10px;
+}
+.cp-url-helper {
+  font-family: var(--mono); font-size: 9px; color: var(--muted2); text-transform: none; letter-spacing: 0;
+}
+.cp-helper {
+  font-family: var(--mono); font-size: 10px; color: var(--muted); font-style: italic;
+  margin-top: 6px; line-height: 1.55;
+}
+
+/* type cards */
+.cp-types {
+  display: grid; gap: 8px;
+}
+.cp-type {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 14px;
+  background: var(--bg3);
+  border: 0.5px solid var(--line2);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.cp-type:hover { background: var(--bg4); border-color: var(--line3); }
+.cp-type.on {
+  border-color: var(--warm);
+  background: rgba(208,136,80,0.07);
+}
+.cp-type-icon {
+  width: 18px; height: 18px;
+  flex-shrink: 0; margin-top: 3px;
+}
+.cp-type-icon.project { background: rgba(197,191,179,0.7); border: 0.5px solid var(--ink2); }
+.cp-type-icon.series { background: rgba(208,136,80,0.55); border: 0.5px solid var(--warm); }
+.cp-type-icon.org { background: rgba(143,166,107,0.85); border-radius: 3px; }
+.cp-type-name {
+  font-family: var(--serif); font-size: 16px; color: var(--ink);
+  margin-bottom: 3px;
+}
+.cp-type.on .cp-type-name { color: var(--warm2); }
+.cp-type-sub {
+  font-size: 12px; color: var(--ink2); line-height: 1.55;
+}
+
+/* inputs */
+.cp-input {
+  width: 100%;
+  background: var(--bg3);
+  border: 0.5px solid var(--line2);
+  border-radius: 2px;
+  font-family: var(--serif); font-size: 16px; font-weight: 300;
+  color: var(--ink); padding: 12px 14px;
+  outline: none;
+  caret-color: var(--warm);
+  transition: border-color .2s;
+}
+.cp-input:focus { border-color: var(--warm); }
+.cp-input::placeholder { color: var(--muted); opacity: .6; font-style: italic; font-size: 14px; }
+.cp-input.sm { font-size: 14px; padding: 9px 12px; }
+
+.cp-url-wrap {
+  position: relative;
+}
+.cp-url-mark {
+  position: absolute;
+  right: 12px; top: 50%; transform: translateY(-50%);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .04em;
+  color: var(--warm); padding: 4px 8px;
+  background: rgba(208,136,80,0.12);
+  border-radius: 2px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s;
+}
+.cp-url-mark.show { opacity: 1; }
+
+/* collaborator rows */
+.cp-collab {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.9fr 28px;
+  gap: 6px;
+  margin-bottom: 6px;
+  align-items: center;
+}
+.cp-collab .cp-input {
+  font-size: 13px; padding: 9px 11px; font-family: var(--sans); font-weight: 400;
+}
+.cp-collab .cp-input::placeholder { font-style: normal; font-size: 12px; }
+.cp-rm-collab {
+  background: transparent; border: 0.5px solid var(--line2);
+  color: var(--muted);
+  width: 28px; height: 32px; border-radius: 2px;
+  font-size: 12px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.cp-rm-collab:hover { border-color: var(--warm); color: var(--warm); }
+
+.cp-add-collab {
+  background: transparent; border: 0.5px dashed var(--line3);
+  color: var(--muted);
+  font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+  padding: 9px 14px; border-radius: 2px; cursor: pointer;
+  margin-top: 8px;
+  width: 100%;
+  transition: all .15s;
+}
+.cp-add-collab:hover { color: var(--warm); border-color: var(--warm); }
+
+.cp-submit {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--warm); border: none; color: var(--bg);
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 14px 28px; border-radius: 2px; cursor: pointer;
+  margin-top: 16px;
+  transition: background .2s, opacity .25s;
+  opacity: 0.4; pointer-events: none;
+}
+.cp-submit.rdy { opacity: 1; pointer-events: auto; }
+.cp-submit:hover { background: var(--warm2); }
+
+.cp-intro {
+  padding: 14px 16px;
+  background: rgba(208,136,80,0.05);
+  border-left: 2px solid var(--warm);
+  border-radius: 0 3px 3px 0;
+  font-family: var(--serif); font-size: 14px; line-height: 1.6;
+  color: var(--ink);
+  margin-bottom: 22px;
+  font-style: italic;
+}
+
+.cp-textarea {
+  resize: vertical;
+  min-height: 56px;
+  font-size: 14px;
+  line-height: 1.55;
+  padding: 12px 14px;
+  font-family: var(--serif);
+}
+
+.cp-ptype-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 8px;
+}
+.cp-ptype {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+  padding: 7px 12px;
+  background: var(--bg3);
+  border: 0.5px solid var(--line2);
+  border-radius: 2px;
+  cursor: pointer;
+  color: var(--ink2);
+  transition: all .15s;
+}
+.cp-ptype:hover { border-color: var(--line3); color: var(--ink); }
+.cp-ptype.on {
+  border-color: var(--warm);
+  background: rgba(208,136,80,0.08);
+  color: var(--warm);
+}
+
+.map-body {
+  display: flex;
+  height: 100vh;
+  padding-top: 50px;
+}
+
+.graph-wrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+#gc { display: block; width: 100%; height: 100%; cursor: grab; }
+#gc:active { cursor: grabbing; }
+
+.graph-overlay {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+
+.peek-intro {
+  position: absolute;
+  top: 56px; left: 32px;
+  font-family: var(--serif); font-size: 16px; line-height: 1.6;
+  color: var(--ink);
+  font-style: italic;
+  opacity: 0;
+  pointer-events: none;
+  max-width: 460px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+  transition: opacity 1s ease;
+}
+.peek-intro.show { opacity: 1; }
+.peek-intro.fade { opacity: 0; }
+.peek-intro .em { color: var(--warm); font-style: normal; font-weight: 500; font-family: var(--sans); font-size: 14px; letter-spacing: .04em; }
+
+/* persistent rule line on the map */
+.map-rule {
+  position: absolute;
+  top: 18px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-align: center;
+  pointer-events: none;
+  z-index: 5;
+  padding: 6px 14px;
+  background: rgba(26,22,18,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 2px;
+  border: 0.5px solid var(--line);
+  max-width: 90vw;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .map-rule { font-size: 9px; padding: 5px 10px; white-space: normal; }
+}
+
+.g-hint {
+  position: absolute;
+  bottom: 24px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(26,22,18,0.7);
+  padding: 8px 14px; border-radius: 2px;
+  border: 0.5px solid var(--line);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .6s;
+}
+.g-hint.show { opacity: 1; }
+
+/* SOFT WALL */
+.soft-wall {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at center, rgba(26,22,18,0) 10%, rgba(26,22,18,0.35) 35%, rgba(26,22,18,0.92) 75%);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 20;
+  pointer-events: auto;
+  backdrop-filter: blur(3px);
+  animation: fadeIn .6s ease both;
+}
+.soft-wall.on { display: flex; }
+.sw-card {
+  text-align: center;
+  max-width: 440px;
+  padding: 36px 32px;
+  background: var(--bg2);
+  border: 0.5px solid var(--line2);
+  border-radius: 4px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+}
+.sw-eyebrow {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--warm); margin-bottom: 14px;
+}
+.sw-h {
+  font-family: var(--serif); font-size: 28px; font-weight: 300; line-height: 1.2;
+  color: var(--ink); margin-bottom: 14px;
+}
+.sw-h em { font-style: italic; color: var(--warm); }
+.sw-p {
+  font-size: 13px; color: var(--ink2); line-height: 1.65; margin-bottom: 24px;
+}
+.sw-btn {
+  background: var(--warm); border: none; color: var(--bg);
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 12px 24px; border-radius: 2px; cursor: pointer;
+  transition: background .2s;
+}
+.sw-btn:hover { background: var(--warm2); }
+
+/* RIGHT PANEL */
+.rpanel {
+  width: 340px;
+  background: var(--bg2);
+  border-left: 0.5px solid var(--line);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.rp-tabs {
+  display: flex;
+  border-bottom: 0.5px solid var(--line);
+  background: var(--bg2);
+}
+.rpt {
+  flex: 1; text-align: center; padding: 14px 8px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: all .2s;
+}
+.rpt:hover { color: var(--ink2); }
+.rpt.on { color: var(--warm); border-bottom-color: var(--warm); }
+.rp-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 22px 40px;
+}
+.rp-body::-webkit-scrollbar { width: 5px; }
+.rp-body::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 3px; }
+.rp-body::-webkit-scrollbar-track { background: transparent; }
+
+.p-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.p-av {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--warmg);
+  color: var(--warm);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 14px; font-weight: 500;
+  border: 0.5px solid rgba(208,136,80,0.35);
+  flex-shrink: 0;
+}
+.p-av.org { border-radius: 4px; background: rgba(143,166,107,0.16); color: var(--green2); border-color: rgba(143,166,107,0.35); }
+.p-av.proj { border-radius: 2px; background: rgba(240,236,226,0.06); color: var(--ink2); border-color: var(--line2); }
+.p-name { font-family: var(--serif); font-size: 18px; font-weight: 400; line-height: 1.15; }
+.p-sub { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: .04em; margin-top: 3px; text-transform: lowercase; }
+
+.p-section {
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid var(--line);
+}
+.p-section:last-child { border-bottom: none; }
+.p-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); display: block; margin-bottom: 10px;
+}
+.p-text { font-size: 13px; color: var(--ink2); line-height: 1.65; }
+.p-text strong { color: var(--ink); font-weight: 500; }
+.p-text em { color: var(--warm2); font-style: italic; }
+
+.p-url {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10px;
+  color: var(--warm); text-decoration: none;
+  word-break: break-all;
+}
+.p-url::before {
+  content: '✓';
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--warmg); color: var(--warm);
+  font-size: 9px; flex-shrink: 0;
+}
+
+.p-list-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 0.5px solid var(--line);
+  transition: padding-left .15s;
+}
+.p-list-item:last-child { border-bottom: none; }
+.p-list-item:hover { padding-left: 4px; color: var(--warm2); }
+.p-list-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--warm);
+  flex-shrink: 0;
+}
+.p-list-dot.sq { border-radius: 1px; background: var(--ink2); }
+.p-list-dot.org { border-radius: 2px; background: var(--green); }
+.p-list-dot.ghost {
+  background: transparent;
+  border: 0.5px dashed var(--muted);
+}
+.p-list-name { flex: 1; color: var(--ink); }
+.p-list-role {
+  font-family: var(--mono); font-size: 9.5px; color: var(--muted); letter-spacing: .04em;
+  text-transform: lowercase;
+}
+
+.trace-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%;
+  background: transparent; border: 0.5px solid var(--warm);
+  color: var(--warm);
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 13px; border-radius: 2px; cursor: pointer;
+  margin-top: 10px;
+  transition: all .2s;
+}
+.trace-btn:hover { background: var(--warm); color: var(--bg); }
+.trace-btn.full {
+  background: var(--warm); color: var(--bg);
+}
+.trace-btn.full:hover { background: var(--warm2); }
+
+.trace-result {
+  font-family: var(--serif); font-size: 14px; line-height: 1.65;
+  color: var(--ink);
+  padding: 16px;
+  background: rgba(208,136,80,0.05);
+  border: 0.5px solid rgba(208,136,80,0.22);
+  border-radius: 3px;
+  min-height: 60px;
+}
+.trace-result .hi { color: var(--warm2); font-style: italic; }
+.trace-result .bold { color: var(--ink); font-weight: 500; font-style: normal; }
+
+.path-line {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  margin-top: 4px;
+  font-family: var(--mono); font-size: 10px;
+}
+.path-step {
+  padding: 5px 9px;
+  background: var(--bg3);
+  border: 0.5px solid var(--line2);
+  border-radius: 2px;
+  cursor: pointer;
+  color: var(--ink2);
+  transition: all .15s;
+}
+.path-step:hover { color: var(--warm); border-color: var(--warm); }
+.path-step.lit { background: var(--warmg); border-color: var(--warm); color: var(--warm); }
+.path-arr { color: var(--muted); font-size: 11px; }
+
+/* ════════════════════════════════════════
+   SCREEN 3 — CLAIM
+═══════════════════════════════════════ */
+#s-claim {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  overflow-y: auto;
+}
+.claim-card {
+  width: 100%; max-width: 480px;
+  margin: auto;
+}
+.claim-eyebrow {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--warm); margin-bottom: 18px;
+}
+.claim-h {
+  font-family: var(--serif); font-size: 36px; font-weight: 300;
+  line-height: 1.15; margin-bottom: 12px;
+}
+.claim-h em { font-style: italic; color: var(--warm); }
+.claim-p {
+  font-size: 13px; color: var(--ink2); margin-bottom: 32px; line-height: 1.7;
+}
+
+.claim-field-group { margin-bottom: 22px; }
+.claim-flabel {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); display: block; margin-bottom: 8px;
+}
+.claim-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid var(--line2);
+  font-family: var(--serif); font-size: 20px; font-weight: 300;
+  color: var(--ink); padding: 8px 0;
+  outline: none;
+  caret-color: var(--warm);
+  transition: border-color .2s;
+}
+.claim-input:focus { border-color: var(--warm); }
+.claim-input::placeholder { color: var(--muted2); opacity: .8; font-style: italic; }
+.claim-input.sm { font-size: 15px; }
+
+.claim-helper {
+  font-family: var(--mono); font-size: 10px; color: var(--muted); font-style: italic;
+  margin-top: 6px;
+}
+
+.claim-role-display {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg2);
+  border: 0.5px solid var(--line2);
+  border-radius: 2px;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+.claim-role-display .role-name {
+  font-family: var(--mono); font-size: 11px; color: var(--warm); letter-spacing: .04em;
+}
+.claim-role-display .role-on {
+  color: var(--muted); font-size: 11px;
+}
+.claim-role-display .role-proj {
+  color: var(--ink2);
+  font-style: italic;
+  font-family: var(--serif); font-size: 14px;
+}
+
+.claim-submit {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--warm); border: none; color: var(--bg);
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 14px 28px; border-radius: 2px; cursor: pointer;
+  margin-top: 8px;
+  transition: background .2s, opacity .25s;
+  opacity: 0.4; pointer-events: none;
+}
+.claim-submit.rdy { opacity: 1; pointer-events: auto; }
+.claim-submit:hover { background: var(--warm2); }
+
+/* role picker */
+.role-picker {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.role-opt {
+  padding: 14px 16px;
+  background: var(--bg2);
+  border: 0.5px solid var(--line2);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.role-opt:hover { border-color: var(--line3); background: var(--bg3); }
+.role-opt.on {
+  border-color: var(--warm);
+  background: rgba(208,136,80,0.06);
+}
+.role-opt-name {
+  font-family: var(--serif); font-size: 16px; color: var(--ink);
+  margin-bottom: 2px;
+}
+.role-opt.on .role-opt-name { color: var(--warm2); }
+.role-opt-sub {
+  font-family: var(--mono); font-size: 10px; color: var(--muted);
+  letter-spacing: .04em;
+}
+
+/* info / how-this-works panel content */
+.info-block {
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 0.5px solid var(--line);
+}
+.info-block:last-child { border-bottom: none; }
+.info-h {
+  font-family: var(--serif); font-size: 17px; font-weight: 400;
+  color: var(--ink); margin-bottom: 10px;
+}
+.info-h em { font-style: italic; color: var(--warm); }
+.info-p {
+  font-size: 13px; line-height: 1.7; color: var(--ink2);
+  margin-bottom: 10px;
+}
+.info-p:last-child { margin-bottom: 0; }
+.info-p strong { color: var(--ink); font-weight: 500; }
+.info-p em { color: var(--warm2); font-style: italic; }
+
+.node-types {
+  display: grid; gap: 10px;
+  margin: 12px 0 4px;
+}
+.node-type-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 12px;
+  background: var(--bg3);
+  border: 0.5px solid var(--line);
+  border-radius: 3px;
+}
+.nt-icon {
+  width: 18px; height: 18px;
+  flex-shrink: 0; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nt-icon.person { border-radius: 50%; background: var(--warm); }
+.nt-icon.project { background: rgba(197,191,179,0.7); border: 0.5px solid var(--ink2); }
+.nt-icon.org { border-radius: 3px; background: rgba(143,166,107,0.85); }
+.nt-name {
+  font-family: var(--serif); font-size: 15px; color: var(--ink);
+  font-weight: 500; margin-bottom: 2px;
+}
+.nt-desc {
+  font-size: 12px; color: var(--ink2); line-height: 1.55;
+}
+
+.rule-card {
+  padding: 16px;
+  background: rgba(208,136,80,0.06);
+  border: 0.5px solid rgba(208,136,80,0.3);
+  border-radius: 3px;
+  margin: 10px 0;
+}
+.rule-eyebrow {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--warm); margin-bottom: 8px;
+}
+.rule-text {
+  font-family: var(--serif); font-size: 15px; line-height: 1.5;
+  color: var(--ink);
+}
+.rule-text em { font-style: italic; color: var(--warm2); }
+
+.example-card {
+  padding: 14px 16px;
+  background: var(--bg3);
+  border-left: 2px solid var(--warm);
+  border-radius: 0 3px 3px 0;
+  margin: 12px 0 4px;
+}
+.example-eyebrow {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
+.example-text {
+  font-size: 12.5px; line-height: 1.65; color: var(--ink2);
+}
+.example-text strong { color: var(--ink); font-weight: 500; }
+.example-text em { color: var(--warm2); font-style: italic; }
+
+/* node-as-structure microcopy */
+.struct-note {
+  display: block;
+  font-family: var(--mono); font-size: 10px;
+  color: var(--muted); font-style: italic;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 0.5px dashed var(--line);
+  line-height: 1.5;
+}
+
+/* "what happened" — first thing on a project node */
+.what-happened .whp {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 12px 14px;
+  background: rgba(208,136,80,0.05);
+  border-left: 2px solid var(--warm);
+  border-radius: 0 3px 3px 0;
+}
+
+/* OUTRO */
+.outro-overlay {
+  position: fixed; inset: 0;
+  background: rgba(13,11,8,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 200;
+  padding: 24px;
+}
+.outro-overlay.on { display: flex; animation: fadeIn .6s ease both; }
+.outro-card {
+  max-width: 520px; text-align: center;
+  padding: 48px 36px;
+  background: var(--bg2);
+  border: 0.5px solid var(--line2);
+  border-radius: 4px;
+}
+.outro-eyebrow {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px;
+}
+.outro-h {
+  font-family: var(--serif); font-size: 30px; font-weight: 300; line-height: 1.2;
+  margin-bottom: 18px;
+}
+.outro-h em { font-style: italic; color: var(--warm); }
+.outro-p {
+  font-size: 13px; color: var(--ink2); line-height: 1.7;
+  margin-bottom: 28px;
+}
+.outro-actions {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+}
+.outro-btn {
+  background: transparent; border: 0.5px solid var(--line2);
+  color: var(--ink2);
+  font-family: var(--sans); font-size: 11px; font-weight: 400;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 11px 20px; border-radius: 2px; cursor: pointer;
+  transition: all .2s;
+}
+.outro-btn:hover { border-color: var(--warm); color: var(--warm); }
+.outro-btn.primary {
+  background: var(--warm); border-color: var(--warm); color: var(--bg);
+}
+.outro-btn.primary:hover { background: var(--warm2); border-color: var(--warm2); }
+
+@media (max-width: 800px) {
+  .rpanel { width: 100%; height: 45%; border-left: none; border-top: 0.5px solid var(--line); }
+  .map-body { flex-direction: column; }
+  .peek-intro { right: 24px; max-width: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">vínculo · concept demo · april 2026</div>
+
+<!-- ════ SCREEN 1: EMAIL ════ -->
+<div class="screen on" id="s-email">
+  <div class="email-frame">
+    <div class="email-head">
+      <div class="eh-row">
+        <span class="eh-label">From</span>
+        <span class="eh-val eh-from">vínculo</span>
+      </div>
+      <div class="eh-row">
+        <span class="eh-label">To</span>
+        <span class="eh-val">you@example.com</span>
+      </div>
+      <h1 class="eh-subj">CODE University of Applied Sciences added you to Vínculo.</h1>
+    </div>
+    <div class="email-body">
+      <span class="email-tag">vínculo · invitation</span>
+      <p>Hi,</p>
+      <p><span class="email-italic">CODE University of Applied Sciences</span> added themselves to Vínculo and listed you as a member of their network.</p>
+      <p>Vínculo is a network that maps how people are connected through the projects and organizations they've actually been part of — not who follows who, but who shows up where, with whom, doing what. You're already a node in someone's web.</p>
+      <p>Here's the map with you in it.</p>
+      <button class="email-cta" onclick="goPeek()">
+        See your node
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <p class="sig">— Vínculo</p>
+    </div>
+    <div class="email-foot">
+      You received this because CODE University named you in their organization. Vínculo is invite-only — connections are made by people, not algorithms.
+    </div>
+  </div>
+</div>
+
+<!-- ════ SCREEN 2: MAP ════ -->
+<div class="screen" id="s-map">
+  <div class="map-topbar">
+    <span class="tb-logo">vínculo</span>
+    <div class="tb-sep"></div>
+    <span class="tb-status" id="tb-status">peek mode</span>
+    <div class="tb-spacer"></div>
+    <button class="tb-add-btn" id="tb-add" onclick="openCreatePanel()">+ define a connection</button>
+    <button class="tb-claim-btn" id="tb-claim" onclick="showSoftWall()">claim your node</button>
+  </div>
+
+  <div class="map-body">
+    <div class="graph-wrap" id="graph-wrap">
+      <canvas id="gc"></canvas>
+      <div class="graph-overlay">
+        <div class="map-rule" id="map-rule">People connect only through shared work — never directly.</div>
+        <div class="peek-intro" id="peek-intro"></div>
+        <div class="g-hint" id="g-hint">click any node · open the <strong style="color:var(--warm)">how</strong> tab to learn the rules</div>
+      </div>
+      <div class="soft-wall" id="soft-wall">
+        <div class="sw-card">
+          <div class="sw-eyebrow">to see the rest of this web</div>
+          <h2 class="sw-h">Claim your <em>node</em>.</h2>
+          <p class="sw-p">You're seeing your immediate orbit — CODE University and the people they've named alongside you. The rest of the network opens once you claim.</p>
+          <button class="sw-btn" onclick="goClaim()">Claim your node →</button>
+        </div>
+      </div>
+
+      <!-- CREATE PANEL — slide-in overlay -->
+      <div class="create-panel" id="create-panel">
+        <div class="cp-head">
+          <div>
+            <div class="cp-eyebrow">define a shared structure</div>
+            <h2 class="cp-h">Add a piece of work that connects people.</h2>
+          </div>
+          <button class="cp-close" onclick="closeCreatePanel()" aria-label="close">✕</button>
+        </div>
+
+        <div class="cp-body">
+          <!-- intro -->
+          <div class="cp-intro">
+            In Vínculo, people are connected only through the projects and organizations they share. Adding one of these creates the structure that links you to others.
+          </div>
+
+          <!-- type selector — only TWO node types -->
+          <div class="cp-section">
+            <span class="cp-label">what kind of structure</span>
+            <div class="cp-types">
+              <div class="cp-type" data-type="project" onclick="pickType('project')">
+                <div class="cp-type-icon project"></div>
+                <div class="cp-type-info">
+                  <div class="cp-type-name">A project</div>
+                  <div class="cp-type-sub">A bounded thing that happened. An interview, an event, an article, a residency. Has a beginning and an end.</div>
+                </div>
+              </div>
+              <div class="cp-type" data-type="org" onclick="pickType('org')">
+                <div class="cp-type-icon org"></div>
+                <div class="cp-type-info">
+                  <div class="cp-type-name">An organization</div>
+                  <div class="cp-type-sub">An ongoing structure that hosts projects and members. A studio, a publication, a university, a collective.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- project type (secondary, only when project is selected) -->
+          <div class="cp-section" id="cp-ptype-section" style="display:none">
+            <span class="cp-label">what kind of project</span>
+            <div class="cp-ptype-row">
+              <div class="cp-ptype" data-ptype="interview" onclick="pickPType('interview')">interview</div>
+              <div class="cp-ptype" data-ptype="event" onclick="pickPType('event')">event</div>
+              <div class="cp-ptype" data-ptype="article" onclick="pickPType('article')">article</div>
+              <div class="cp-ptype" data-ptype="publication" onclick="pickPType('publication')">publication</div>
+              <div class="cp-ptype" data-ptype="residency" onclick="pickPType('residency')">residency</div>
+              <div class="cp-ptype" data-ptype="workshop" onclick="pickPType('workshop')">workshop</div>
+              <div class="cp-ptype" data-ptype="dinner" onclick="pickPType('dinner')">dinner</div>
+              <div class="cp-ptype" data-ptype="series" onclick="pickPType('series')">series</div>
+              <div class="cp-ptype" data-ptype="other" onclick="pickPType('other')">other</div>
+            </div>
+            <div class="cp-helper" id="cp-ptype-note">Pick the type that fits. <em>Series</em> is for projects that contain other projects — like an interview series, a season, or a magazine that holds multiple issues.</div>
+          </div>
+
+          <!-- title -->
+          <div class="cp-section">
+            <span class="cp-label">name it</span>
+            <input class="cp-input" id="cp-title" type="text" placeholder="how should this appear on the map" oninput="checkCreate()">
+            <div class="cp-helper">Use the name people who were there would recognize.</div>
+          </div>
+
+          <!-- description -->
+          <div class="cp-section">
+            <span class="cp-label">what actually happened</span>
+            <textarea class="cp-input cp-textarea" id="cp-desc" rows="2" placeholder="one or two lines — what was this, when did it happen, what was it for"></textarea>
+            <div class="cp-helper">A real sentence anyone could read and understand. Optional but recommended.</div>
+          </div>
+
+          <!-- URL with verification -->
+          <div class="cp-section">
+            <span class="cp-label" id="cp-url-label">source url <span class="cp-url-helper">(required for organizations · optional for projects)</span></span>
+            <div class="cp-url-wrap">
+              <input class="cp-input" id="cp-url" type="text" placeholder="e.g. softer.community or thecreativeindependent.com/article" oninput="checkUrl(); checkCreate();">
+              <span class="cp-url-mark" id="cp-url-mark">✓ verified</span>
+            </div>
+            <div class="cp-helper">A public webpage that proves this exists — an article, an event listing, an organization's site.</div>
+          </div>
+
+          <!-- collaborators -->
+          <div class="cp-section">
+            <span class="cp-label">who was part of it <span class="cp-url-helper">(name + role · email is optional)</span></span>
+            <div class="cp-helper" style="margin-bottom:14px">Naming someone here is what creates the connection between you. With an email, they receive an invite. Without one, they appear as a ghost node — credit only.</div>
+            <div id="cp-collabs"></div>
+            <button class="cp-add-collab" onclick="addCollab()">+ add another person</button>
+          </div>
+
+          <button class="cp-submit" id="cp-submit" onclick="submitCreate()">Add this shared work</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="rpanel">
+      <div class="rp-tabs">
+        <div class="rpt on" id="tab-why" onclick="setTab('why')">why</div>
+        <div class="rpt" id="tab-trace" onclick="setTab('trace')">trace</div>
+        <div class="rpt" id="tab-info" onclick="setTab('info')">how</div>
+      </div>
+      <div class="rp-body" id="rp-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ SCREEN 3: CLAIM ════ -->
+<div class="screen" id="s-claim">
+  <div class="claim-card">
+    <div class="claim-eyebrow">claim your node</div>
+    <h1 class="claim-h">You're <em>already</em><br>in the web.</h1>
+    <p class="claim-p">CODE University of Applied Sciences listed you as a member of their network. Confirm a few things and your node is yours — Vínculo will remember you from here on.</p>
+
+    <div class="claim-field-group">
+      <span class="claim-flabel">Your name</span>
+      <input class="claim-input" id="c-name" type="text" placeholder="how should you be named on the map" oninput="checkClaim()">
+    </div>
+
+    <div class="claim-field-group">
+      <span class="claim-flabel">Email</span>
+      <input class="claim-input sm" id="c-email" type="email" placeholder="we'll send a verification code" oninput="checkClaim()">
+      <div class="claim-helper">used to log back in. no marketing.</div>
+    </div>
+
+    <div class="claim-field-group">
+      <span class="claim-flabel">Your role at CODE University</span>
+      <div class="role-picker">
+        <div class="role-opt" data-role="student" onclick="pickRole('student')">
+          <div class="role-opt-name">Student</div>
+          <div class="role-opt-sub">Currently studying at CODE</div>
+        </div>
+        <div class="role-opt" data-role="alumni" onclick="pickRole('alumni')">
+          <div class="role-opt-name">Alumni</div>
+          <div class="role-opt-sub">Graduated from CODE</div>
+        </div>
+        <div class="role-opt" data-role="speaker" onclick="pickRole('speaker')">
+          <div class="role-opt-name">Speaker</div>
+          <div class="role-opt-sub">Spoke at a CODE event or class</div>
+        </div>
+      </div>
+      <div class="claim-helper">Roles describe how you participate. Different roles, same node-level credit.</div>
+    </div>
+
+    <div class="claim-field-group">
+      <span class="claim-flabel">What you're working on (optional)</span>
+      <input class="claim-input sm" id="c-focus" type="text" placeholder="one line, your current focus">
+    </div>
+
+    <button class="claim-submit" id="claim-submit" onclick="finishClaim()">
+      Claim my node →
+    </button>
+  </div>
+</div>
+
+<!-- OUTRO -->
+<div class="outro-overlay" id="outro">
+  <div class="outro-card">
+    <div class="outro-eyebrow">end of demo</div>
+    <h2 class="outro-h">You've seen what <em>claiming your node</em> would feel like.</h2>
+    <p class="outro-p">Vínculo is in concept. The names and projects in this demo are real — the seed community Vínculo will launch with. CODE University is the bridge that connects you, the viewer, into that web. Nothing here was scraped or auto-populated. Every node was named by hand.</p>
+    <div class="outro-actions">
+      <button class="outro-btn" onclick="document.getElementById('outro').classList.remove('on'); resetDemo();">Walk through again</button>
+      <button class="outro-btn primary" onclick="document.getElementById('outro').classList.remove('on');">Stay in the map</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════
+   DATA — real seed community
+═══════════════════════════════════════ */
+
+const NODES = [
+  // YOU (the viewer)
+  { id: 'you', label: 'You', type: 'you', sub: 'member of CODE',
+    bio: 'You are the viewer of this demo. Your node is anchored at the center because everything in the map is shown from your perspective. You were added to Vínculo by CODE University, where you are listed as a member.',
+    inPeek: true },
+
+  // CODE — the org that brings the viewer in
+  { id: 'code', label: 'CODE University of Applied Sciences', type: 'org',
+    sub: 'organization · university',
+    url: 'code.berlin',
+    bio: 'A project-based university in Berlin focused on software engineering, interaction design, and product management. The organization that pulled you into Vínculo.',
+    inPeek: true },
+
+  // Mercedes — you, the founder, as a claimed node visible from the start
+  { id: 'mercedes', label: 'Mercedes Torrendell', type: 'person',
+    sub: 'student · CODE',
+    bio: 'Mercedes Torrendell — software developer and analog photographer based in Berlin. Originally from Uruguay, where she worked in film. She practices analog photography with a local community and writes about how AI and emerging technologies are reshaping creative practice. She is the person building Vínculo, and a fellow member of CODE.',
+    inPeek: true },
+
+  // OTHER ORGS in the wider seed
+  { id: 'tci', label: 'The Creative Independent', type: 'org',
+    sub: 'organization · publication',
+    url: 'thecreativeindependent.com',
+    bio: 'A growing resource of practical and emotional guidance for creative people, published since 2016. Long-form interviews with artists, musicians, writers, and designers.' },
+
+  { id: 'merantix', label: 'Merantix', type: 'org',
+    sub: 'organization · ai venture studio',
+    url: 'merantix.com',
+    bio: 'A Berlin-based AI venture studio that hosts the AI Campus and various community events.' },
+
+  { id: 'softer', label: 'Softer', type: 'org',
+    sub: 'organization · in talks',
+    url: null,
+    inTalks: true,
+    bio: 'A creative community and collective. Conversation pending — Softer is part of the seed Vínculo will launch with.' },
+
+  { id: 'ipb', label: 'Internet Phone Book', type: 'org',
+    sub: 'organization · in talks',
+    url: 'internetphonebook.net',
+    inTalks: true,
+    bio: 'A printed directory of people and websites — "the internet as something worth holding physically." Conversation pending.' },
+
+  // SERIES (Mercedes's project)
+  { id: 'series', label: 'Tech & Creative Industries', type: 'series',
+    sub: 'series · ongoing',
+    ptype: 'series',
+    desc: 'An interview series exploring how AI and emerging tech are reshaping creative practice.',
+    url: 'thecreativeindependent.com/people/mercedes-torrendell',
+    bio: 'Mercedes Torrendell\'s interview series exploring how AI and emerging technologies are reshaping creative practice — from both technical and creative perspectives. Published in The Creative Independent.' },
+
+  // SUB-PROJECTS (interviews — Mercedes's)
+  { id: 'int-cesar', label: 'Interview: César Fieiras Ceide', type: 'subproject',
+    sub: 'interview · january 2026',
+    ptype: 'interview',
+    parent: 'series',
+    desc: 'A conversation with researcher César Fieiras Ceide on cognitive debt and AI in creative industries.',
+    url: 'thecreativeindependent.com/people/cesar-fieiras-ceide',
+    bio: 'Mercedes\'s interview with researcher César Fieiras Ceide on the complex influence of AI in creative industries. Published January 13, 2026.' },
+
+  { id: 'int-joseph', label: 'Interview: Joseph Brett', type: 'subproject',
+    sub: 'interview · april 2026',
+    ptype: 'interview',
+    parent: 'series',
+    desc: 'A conversation with animator Joseph Brett on slowness as a creative practice.',
+    url: 'thecreativeindependent.com/people/joseph-brett',
+    bio: 'Mercedes\'s interview with animator and filmmaker Joseph Brett on why slowness makes you see things differently. Published April 3, 2026.' },
+
+  { id: 'int-roopa', label: 'Interview: Roopa', type: 'subproject',
+    sub: 'interview · queued',
+    ptype: 'interview',
+    parent: 'series',
+    desc: 'An upcoming conversation with Roopa, queued for publication.',
+    queued: true,
+    bio: 'Upcoming interview, queued for publication. Conversation underway.' },
+
+  { id: 'int-matt', label: 'Interview: Matthew Preberg', type: 'subproject',
+    sub: 'interview · queued',
+    ptype: 'interview',
+    parent: 'series',
+    desc: 'An upcoming conversation with Matthew Preberg, queued for publication.',
+    queued: true,
+    bio: 'Upcoming interview, queued for publication. Conversation underway.' },
+
+  // EVENT
+  { id: 'event-aiwomen', label: 'AI Women\'s Breakfast', type: 'event',
+    sub: 'event · march 2026',
+    ptype: 'event',
+    desc: 'A breakfast gathering for women working with AI, hosted at Merantix Berlin.',
+    url: 'lu.ma/ai-womens-breakfast',
+    bio: 'A breakfast gathering for women working with AI, hosted at Merantix.' },
+
+  // PEOPLE (Mercedes's interviewees)
+  { id: 'cesar', label: 'César Fieiras Ceide', type: 'person',
+    sub: 'researcher',
+    bio: 'Researcher exploring AI in creative industries. Interviewee for the Tech & Creative Industries series.' },
+
+  { id: 'joseph', label: 'Joseph Brett', type: 'person',
+    sub: 'animator · filmmaker',
+    bio: 'Animator and filmmaker exploring slowness as a creative practice. Interviewee for the Tech & Creative Industries series.' },
+
+  { id: 'roopa', label: 'Roopa', type: 'person',
+    sub: 'in talks · queued',
+    queued: true,
+    bio: 'Interviewee for an upcoming piece. Conversation underway.' },
+
+  { id: 'matt', label: 'Matthew Preberg', type: 'person',
+    sub: 'in talks · queued',
+    queued: true,
+    bio: 'Interviewee for an upcoming piece. Conversation underway.' },
+
+  // CODE peer ghost (visible in peek to give the viewer a sense of "I'm here with others")
+  { id: 'code-peer', label: 'CODE Peer', type: 'person',
+    sub: 'ghost · CODE member',
+    ghost: true,
+    inPeek: true,
+    bio: 'A fellow CODE member, named through the organization but not yet claimed. Visible as a ghost node — name only, no profile.' },
+];
+
+// EDGES
+const EDGES = [
+  // PEEK edges
+  { a: 'you', b: 'code', role: 'member', kind: 'membership', peek: true },
+  { a: 'mercedes', b: 'code', role: 'student', kind: 'membership', peek: true },
+  { a: 'code-peer', b: 'code', role: 'member', kind: 'membership', peek: true },
+
+  // POST-CLAIM: Mercedes's wider network
+  { a: 'mercedes', b: 'tci', role: 'contributing writer', kind: 'membership' },
+  { a: 'mercedes', b: 'series', role: 'creator', kind: 'creator' },
+  { a: 'series', b: 'tci', role: 'published by', kind: 'parent-org' },
+  { a: 'int-cesar', b: 'series', role: 'part of', kind: 'sub' },
+  { a: 'int-joseph', b: 'series', role: 'part of', kind: 'sub' },
+  { a: 'int-roopa', b: 'series', role: 'part of', kind: 'sub' },
+  { a: 'int-matt', b: 'series', role: 'part of', kind: 'sub' },
+  { a: 'mercedes', b: 'int-cesar', role: 'writer', kind: 'creator' },
+  { a: 'mercedes', b: 'int-joseph', role: 'writer', kind: 'creator' },
+  { a: 'mercedes', b: 'int-roopa', role: 'writer', kind: 'creator' },
+  { a: 'mercedes', b: 'int-matt', role: 'writer', kind: 'creator' },
+  { a: 'cesar', b: 'int-cesar', role: 'interviewee', kind: 'participant' },
+  { a: 'joseph', b: 'int-joseph', role: 'interviewee', kind: 'participant' },
+  { a: 'roopa', b: 'int-roopa', role: 'interviewee', kind: 'participant' },
+  { a: 'matt', b: 'int-matt', role: 'interviewee', kind: 'participant' },
+  { a: 'cesar', b: 'tci', role: 'subject', kind: 'membership' },
+  { a: 'joseph', b: 'tci', role: 'subject', kind: 'membership' },
+  { a: 'mercedes', b: 'event-aiwomen', role: 'attendee', kind: 'participant' },
+  { a: 'event-aiwomen', b: 'merantix', role: 'hosted by', kind: 'parent-org' },
+];
+
+/* ════════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let claimed = false;
+let selId = 'you';
+let activeTab = 'why';
+let lastTrace = null;
+let traceTarget = null;
+
+const U = { name: '', email: '', focus: '', role: null };
+
+/* ════════════════════════════════════════
+   FORCE-DIRECTED SIMULATION
+═══════════════════════════════════════ */
+
+// Each node has a position + velocity. Forces:
+//  - repulsion between all nodes
+//  - attraction along edges
+//  - centering pull toward origin
+//  - YOU is anchored at center (during peek and after)
+
+const sim = {
+  nodes: {},  // id -> { x, y, vx, vy, fx, fy }
+  initialized: false,
+};
+
+function initSim() {
+  // place YOU at origin, others on a circle around it
+  const ids = NODES.map(n => n.id);
+  const youAt = { x: 0, y: 0 };
+  sim.nodes['you'] = { x: 0, y: 0, vx: 0, vy: 0 };
+  let i = 0;
+  const others = ids.filter(id => id !== 'you');
+  for (const id of others) {
+    const angle = (i / others.length) * Math.PI * 2;
+    const r = 200 + Math.random() * 60;
+    sim.nodes[id] = {
+      x: Math.cos(angle) * r,
+      y: Math.sin(angle) * r,
+      vx: 0, vy: 0,
+    };
+    i++;
+  }
+  sim.initialized = true;
+}
+
+function tickSim(dt = 1) {
+  // get currently visible nodes
+  const visibleIds = NODES.filter(n => claimed || n.inPeek).map(n => n.id);
+  const visibleSet = new Set(visibleIds);
+
+  // repulsion
+  for (let i = 0; i < visibleIds.length; i++) {
+    const a = visibleIds[i];
+    const na = sim.nodes[a];
+    for (let j = i + 1; j < visibleIds.length; j++) {
+      const b = visibleIds[j];
+      const nb = sim.nodes[b];
+      const dx = nb.x - na.x;
+      const dy = nb.y - na.y;
+      const distSq = dx * dx + dy * dy + 0.1;
+      const dist = Math.sqrt(distSq);
+      const force = 8000 / distSq;
+      const fx = (dx / dist) * force;
+      const fy = (dy / dist) * force;
+      na.vx -= fx * dt;
+      na.vy -= fy * dt;
+      nb.vx += fx * dt;
+      nb.vy += fy * dt;
+    }
+  }
+
+  // attraction along edges (only edges where both endpoints visible)
+  for (const e of EDGES) {
+    if (!visibleSet.has(e.a) || !visibleSet.has(e.b)) continue;
+    if (!claimed && !e.peek) continue;
+    const na = sim.nodes[e.a];
+    const nb = sim.nodes[e.b];
+    const dx = nb.x - na.x;
+    const dy = nb.y - na.y;
+    const dist = Math.sqrt(dx * dx + dy * dy + 0.1);
+    const targetDist = 130;
+    const force = (dist - targetDist) * 0.018;
+    const fx = (dx / dist) * force;
+    const fy = (dy / dist) * force;
+    na.vx += fx * dt;
+    na.vy += fy * dt;
+    nb.vx -= fx * dt;
+    nb.vy -= fy * dt;
+  }
+
+  // mild centering pull
+  for (const id of visibleIds) {
+    if (id === 'you') continue;
+    const n = sim.nodes[id];
+    n.vx += -n.x * 0.001 * dt;
+    n.vy += -n.y * 0.001 * dt;
+  }
+
+  // damping + position update
+  for (const id of visibleIds) {
+    const n = sim.nodes[id];
+    n.vx *= 0.85;
+    n.vy *= 0.85;
+    if (id === 'you') {
+      // YOU is anchored
+      n.x = 0; n.y = 0; n.vx = 0; n.vy = 0;
+    } else {
+      n.x += n.vx * dt;
+      n.y += n.vy * dt;
+    }
+  }
+}
+
+/* ════════════════════════════════════════
+   GRAPH RENDER (canvas)
+═══════════════════════════════════════ */
+const cv = document.getElementById('gc');
+const ctx = cv.getContext('2d');
+let cw = 0, ch = 0;
+let dpr = 1;
+
+// Camera: target + smoothed actual position
+const cam = {
+  // current
+  x: 0, y: 0, scale: 1,
+  // target (animation goal)
+  tx: 0, ty: 0, ts: 1,
+};
+
+let isDragging = false;
+let dragStart = null;
+let nodeAnimT = 0;
+let zoomingOut = false;
+let zoomStartTime = 0;
+
+function resizeCanvas() {
+  const r = cv.getBoundingClientRect();
+  cw = r.width;
+  ch = r.height;
+  dpr = window.devicePixelRatio || 1;
+  cv.width = cw * dpr;
+  cv.height = ch * dpr;
+}
+
+function fitCameraToVisible(animate = false, padding = 100) {
+  const visible = NODES.filter(n => claimed || n.inPeek);
+  if (!visible.length) return;
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  for (const n of visible) {
+    const sn = sim.nodes[n.id];
+    if (!sn) continue;
+    if (sn.x < minX) minX = sn.x;
+    if (sn.x > maxX) maxX = sn.x;
+    if (sn.y < minY) minY = sn.y;
+    if (sn.y > maxY) maxY = sn.y;
+  }
+  const w = maxX - minX + padding * 2;
+  const h = maxY - minY + padding * 2;
+  const scaleX = cw / w;
+  const scaleY = ch / h;
+  // cap zoom-out so YOU stays prominent — don't zoom out further than needed,
+  // and don't go below 0.7 even if it means clipping outer nodes
+  const minScale = claimed ? 0.7 : 0.9;
+  const maxScale = 1.2;
+  const targetScale = Math.max(minScale, Math.min(scaleX, scaleY, maxScale));
+  // center on YOU rather than the geometric centroid — keeps YOU visually central
+  cam.tx = 0;
+  cam.ty = 0;
+  cam.ts = targetScale;
+
+  if (!animate) {
+    cam.x = cam.tx; cam.y = cam.ty; cam.scale = cam.ts;
+  }
+}
+
+function nodeColors(n, isSelected) {
+  const ghosty = n.ghost || n.queued || n.inTalks;
+  if (n.id === 'you') return { fill: '#E89456', stroke: '#F2B27D', glow: 'rgba(232,148,86,0.6)' };
+  if (n.type === 'org') {
+    return ghosty
+      ? { fill: 'rgba(143,166,107,0.35)', stroke: 'rgba(143,166,107,0.55)', glow: 'rgba(143,166,107,0.25)' }
+      : { fill: 'rgba(143,166,107,0.85)', stroke: '#A8C087', glow: 'rgba(143,166,107,0.3)' };
+  }
+  if (n.type === 'series') return { fill: 'rgba(208,136,80,0.55)', stroke: '#D08850', glow: 'rgba(208,136,80,0.3)' };
+  if (n.type === 'subproject') {
+    return ghosty
+      ? { fill: 'rgba(197,191,179,0.22)', stroke: 'rgba(197,191,179,0.45)', glow: 'rgba(197,191,179,0.15)' }
+      : { fill: 'rgba(197,191,179,0.7)', stroke: '#C5BFB3', glow: 'rgba(197,191,179,0.2)' };
+  }
+  if (n.type === 'event') return { fill: 'rgba(197,191,179,0.7)', stroke: '#C5BFB3', glow: 'rgba(197,191,179,0.2)' };
+  // person
+  return ghosty
+    ? { fill: 'rgba(208,136,80,0.28)', stroke: 'rgba(208,136,80,0.45)', glow: 'rgba(208,136,80,0.15)' }
+    : { fill: 'rgba(208,136,80,0.78)', stroke: '#D08850', glow: 'rgba(208,136,80,0.25)' };
+}
+
+function nodeShape(n) {
+  if (n.type === 'org') return 'rounded';
+  if (n.type === 'series' || n.type === 'subproject' || n.type === 'event') return 'square';
+  return 'circle';
+}
+
+function nodeRadius(n, isSelected) {
+  let base;
+  if (n.id === 'you') base = 22;
+  else if (n.type === 'org') base = 16;
+  else if (n.type === 'series') base = 14;
+  else if (n.type === 'subproject') base = 8;
+  else if (n.type === 'event') base = 10;
+  else base = 9;
+  if (isSelected && n.id !== 'you') base += 2;
+  return base;
+}
+
+function shouldShowLabel(n, isSelected, isHover) {
+  if (n.id === 'you') return true;
+  if (isSelected) return true;
+  if (isHover) return true;
+  // major nodes always
+  if (n.type === 'org' || n.type === 'series') return true;
+  return false;
+}
+
+function drawEdge(a, b, edge, alpha) {
+  const sa = sim.nodes[a.id];
+  const sb = sim.nodes[b.id];
+  if (!sa || !sb) return;
+
+  // Determine subgraph membership for this edge
+  const isTracePath = traceHighlight && traceHighlight.has(`${a.id}-${b.id}`);
+  // an edge is "active" if it touches the currently selected node OR is part of the trace path
+  const touchesSelected = (selId && (a.id === selId || b.id === selId));
+  const touchesHovered = (hoverNodeId && (a.id === hoverNodeId || b.id === hoverNodeId));
+  const isActive = isTracePath || touchesSelected || touchesHovered;
+
+  // Determine focus dimming: when something is "active" (selected OR trace OR hovered),
+  // unrelated edges fade. When nothing active, all edges show normally (calm baseline).
+  const hasAnyActive = !!(traceHighlight && traceHighlight.size) || (selId && selId !== 'you') || hoverNodeId;
+  const dim = hasAnyActive && !isActive ? 0.18 : 1;
+  const effectiveAlpha = alpha * dim;
+
+  if (isTracePath) {
+    ctx.strokeStyle = `rgba(208,136,80,${0.95 * effectiveAlpha})`;
+    ctx.lineWidth = 1.6;
+  } else if (isActive) {
+    ctx.strokeStyle = `rgba(208,136,80,${0.5 * effectiveAlpha})`;
+    ctx.lineWidth = 1.0;
+  } else {
+    // baseline edges — same as before but multiplied by dim
+    const isYouEdge = a.id === 'you' || b.id === 'you';
+    if (isYouEdge) {
+      ctx.strokeStyle = `rgba(208,136,80,${0.32 * effectiveAlpha})`;
+      ctx.lineWidth = 0.9;
+    } else {
+      ctx.strokeStyle = `rgba(240,236,226,${0.13 * effectiveAlpha})`;
+      ctx.lineWidth = 0.5;
+    }
+  }
+
+  if (edge.kind === 'sub') ctx.setLineDash([4, 4]);
+  else ctx.setLineDash([]);
+
+  ctx.beginPath();
+  ctx.moveTo(sa.x, sa.y);
+  ctx.lineTo(sb.x, sb.y);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // ROLE LABEL — only on active subgraph (trace path, selected-touching, or hovered-touching)
+  // skip structural edges (parent-org, sub) — these are containment, not participation roles
+  if (edge.kind === 'parent-org' || edge.kind === 'sub') return;
+  if (!isActive) return;
+  const role = (edge.role || '').trim();
+  if (!role) return;
+
+  // skip labels on very short edges (would overlap node)
+  const dx = sb.x - sa.x;
+  const dy = sb.y - sa.y;
+  const len = Math.sqrt(dx * dx + dy * dy);
+  if (len < 60) return;
+
+  const mx = (sa.x + sb.x) / 2;
+  const my = (sa.y + sb.y) / 2;
+  const px = -dy / len;
+  const py = dx / len;
+  const offsetDist = 7;
+  const labelX = mx + px * offsetDist;
+  const labelY = my + py * offsetDist;
+
+  ctx.save();
+  // smaller, more subtle than v7
+  ctx.font = '300 8.5px "DM Mono", monospace';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const textW = ctx.measureText(role).width;
+
+  // pill background — subtler, no border, slightly transparent
+  const padX = 5, padY = 2;
+  ctx.fillStyle = `rgba(26,22,18,${0.78 * effectiveAlpha})`;
+  ctx.beginPath();
+  const rx = labelX - textW / 2 - padX;
+  const ry = labelY - 7;
+  const rw = textW + padX * 2;
+  const rh = 13;
+  const rd = 2;
+  ctx.moveTo(rx + rd, ry);
+  ctx.lineTo(rx + rw - rd, ry);
+  ctx.quadraticCurveTo(rx + rw, ry, rx + rw, ry + rd);
+  ctx.lineTo(rx + rw, ry + rh - rd);
+  ctx.quadraticCurveTo(rx + rw, ry + rh, rx + rw - rd, ry + rh);
+  ctx.lineTo(rx + rd, ry + rh);
+  ctx.quadraticCurveTo(rx, ry + rh, rx, ry + rh - rd);
+  ctx.lineTo(rx, ry + rd);
+  ctx.quadraticCurveTo(rx, ry, rx + rd, ry);
+  ctx.fill();
+
+  // text — secondary in hierarchy, low contrast
+  if (isTracePath) ctx.fillStyle = `rgba(230,162,104,${0.95 * effectiveAlpha})`;
+  else ctx.fillStyle = `rgba(208,136,80,${0.78 * effectiveAlpha})`;
+  ctx.fillText(role, labelX, labelY);
+  ctx.restore();
+}
+
+// kept for compatibility; no longer used but harmless
+function isLocalEdge(a, b) {
+  return false;
+}
+
+function drawNode(n, isSelected, isHover, alpha) {
+  const sn = sim.nodes[n.id];
+  if (!sn) return;
+  const r = nodeRadius(n, isSelected);
+  const cols = nodeColors(n, isSelected);
+  const shape = nodeShape(n);
+  const isYou = n.id === 'you';
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+
+  // YOU node gets a stronger, persistent multi-layer glow
+  if (isYou) {
+    // outer soft halo
+    const outerR = r + 30 + Math.sin(nodeAnimT * 0.025) * 4;
+    const outerGrad = ctx.createRadialGradient(sn.x, sn.y, r, sn.x, sn.y, outerR);
+    outerGrad.addColorStop(0, 'rgba(208,136,80,0.18)');
+    outerGrad.addColorStop(0.6, 'rgba(208,136,80,0.06)');
+    outerGrad.addColorStop(1, 'rgba(208,136,80,0)');
+    ctx.fillStyle = outerGrad;
+    ctx.beginPath();
+    ctx.arc(sn.x, sn.y, outerR, 0, Math.PI * 2);
+    ctx.fill();
+    // inner pulse
+    const innerR = r + 12 + Math.sin(nodeAnimT * 0.045) * 3;
+    const innerGrad = ctx.createRadialGradient(sn.x, sn.y, r, sn.x, sn.y, innerR);
+    innerGrad.addColorStop(0, 'rgba(230,162,104,0.45)');
+    innerGrad.addColorStop(1, 'rgba(208,136,80,0)');
+    ctx.fillStyle = innerGrad;
+    ctx.beginPath();
+    ctx.arc(sn.x, sn.y, innerR, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (isSelected) {
+    // selection glow for non-YOU
+    const glowR = r + 14 + Math.sin(nodeAnimT * 0.04) * 2;
+    const grad = ctx.createRadialGradient(sn.x, sn.y, r, sn.x, sn.y, glowR + 8);
+    grad.addColorStop(0, cols.glow);
+    grad.addColorStop(1, 'rgba(208,136,80,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(sn.x, sn.y, glowR + 8, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  ctx.fillStyle = cols.fill;
+  ctx.strokeStyle = cols.stroke;
+  ctx.lineWidth = isYou ? 2 : ((n.queued || n.inTalks || n.ghost) ? 0.8 : 1.3);
+
+  if (shape === 'circle') {
+    ctx.beginPath();
+    ctx.arc(sn.x, sn.y, r, 0, Math.PI * 2);
+    ctx.fill();
+    if (n.queued || n.inTalks || n.ghost) ctx.setLineDash([2.5, 2.5]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // YOU node gets an inner ring
+    if (isYou) {
+      ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(sn.x, sn.y, r - 5, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  } else if (shape === 'square') {
+    ctx.beginPath();
+    ctx.rect(sn.x - r, sn.y - r, r * 2, r * 2);
+    ctx.fill();
+    if (n.queued || n.inTalks || n.ghost) ctx.setLineDash([2.5, 2.5]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  } else if (shape === 'rounded') {
+    const rd = 4;
+    ctx.beginPath();
+    ctx.moveTo(sn.x - r + rd, sn.y - r);
+    ctx.lineTo(sn.x + r - rd, sn.y - r);
+    ctx.quadraticCurveTo(sn.x + r, sn.y - r, sn.x + r, sn.y - r + rd);
+    ctx.lineTo(sn.x + r, sn.y + r - rd);
+    ctx.quadraticCurveTo(sn.x + r, sn.y + r, sn.x + r - rd, sn.y + r);
+    ctx.lineTo(sn.x - r + rd, sn.y + r);
+    ctx.quadraticCurveTo(sn.x - r, sn.y + r, sn.x - r, sn.y + r - rd);
+    ctx.lineTo(sn.x - r, sn.y - r + rd);
+    ctx.quadraticCurveTo(sn.x - r, sn.y - r, sn.x - r + rd, sn.y - r);
+    ctx.fill();
+    if (n.queued || n.inTalks || n.ghost) ctx.setLineDash([2.5, 2.5]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // YOU node always shows a "YOU" badge above + name below
+  if (isYou) {
+    // "YOU" tag above
+    ctx.font = '500 9px "DM Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const tagY = sn.y - r - 12;
+    const tagText = 'YOU';
+    const tagW = ctx.measureText(tagText).width + 14;
+    ctx.fillStyle = 'rgba(208,136,80,0.95)';
+    ctx.beginPath();
+    const tagH = 16;
+    const tagX = sn.x - tagW / 2;
+    const rd = 2;
+    ctx.moveTo(tagX + rd, tagY - tagH / 2);
+    ctx.lineTo(tagX + tagW - rd, tagY - tagH / 2);
+    ctx.quadraticCurveTo(tagX + tagW, tagY - tagH / 2, tagX + tagW, tagY - tagH / 2 + rd);
+    ctx.lineTo(tagX + tagW, tagY + tagH / 2 - rd);
+    ctx.quadraticCurveTo(tagX + tagW, tagY + tagH / 2, tagX + tagW - rd, tagY + tagH / 2);
+    ctx.lineTo(tagX + rd, tagY + tagH / 2);
+    ctx.quadraticCurveTo(tagX, tagY + tagH / 2, tagX, tagY + tagH / 2 - rd);
+    ctx.lineTo(tagX, tagY - tagH / 2 + rd);
+    ctx.quadraticCurveTo(tagX, tagY - tagH / 2, tagX + rd, tagY - tagH / 2);
+    ctx.fill();
+    ctx.fillStyle = '#1A1612';
+    ctx.fillText(tagText, sn.x, tagY + 0.5);
+
+    // name below
+    const labelY = sn.y + r + 16;
+    ctx.font = 'italic 500 17px "Cormorant Garamond", serif';
+    ctx.textBaseline = 'top';
+    const labelText = claimed ? U.name : 'You';
+    ctx.fillStyle = 'rgba(26,22,18,0.85)';
+    for (let dy of [-1, 1]) for (let dx of [-1, 1]) ctx.fillText(labelText, sn.x + dx, labelY + dy);
+    ctx.fillStyle = '#F0ECE2';
+    ctx.fillText(labelText, sn.x, labelY);
+    if (n.sub) {
+      ctx.font = '300 10px "DM Mono", monospace';
+      ctx.fillStyle = '#A8A296';
+      ctx.fillText(n.sub.toUpperCase(), sn.x, labelY + 22);
+    }
+  } else if (shouldShowLabel(n, isSelected, isHover)) {
+    const labelY = sn.y + r + 14;
+    ctx.font = (isSelected ? 'italic 500 ' : '300 ') + '13px "Cormorant Garamond", serif';
+    const labelText = n.label.replace('Interview: ', '');
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = 'rgba(26,22,18,0.85)';
+    for (let dy of [-1, 1]) for (let dx of [-1, 1]) ctx.fillText(labelText, sn.x + dx, labelY + dy);
+    ctx.fillStyle = isSelected ? '#E6A268' : '#F0ECE2';
+    ctx.fillText(labelText, sn.x, labelY);
+    if (isSelected && n.sub) {
+      ctx.font = '300 9px "DM Mono", monospace';
+      ctx.fillStyle = '#8A8478';
+      ctx.fillText(n.sub.toUpperCase(), sn.x, labelY + 18);
+    }
+  }
+  ctx.restore();
+}
+
+let hoverNodeId = null;
+let traceHighlight = null;
+
+// Compute the set of "active" node ids — those in the current focus subgraph.
+// Active = selected node + its direct neighbors + hovered node + its direct neighbors + trace path nodes + YOU.
+// If nothing is active (no selection beyond YOU, no hover, no trace), returns null (= treat all as active).
+function getActiveNodeSet() {
+  const hasTrace = traceHighlight && traceHighlight.size > 0;
+  const hasHover = !!hoverNodeId;
+  const hasSelect = selId && selId !== 'you';
+  if (!hasTrace && !hasHover && !hasSelect) return null;
+
+  const active = new Set();
+  active.add('you'); // YOU is always primary
+
+  if (hasSelect) {
+    active.add(selId);
+    // direct neighbors of selected
+    for (const e of EDGES) {
+      if (e.a === selId) active.add(e.b);
+      if (e.b === selId) active.add(e.a);
+    }
+  }
+  if (hasHover) {
+    active.add(hoverNodeId);
+    for (const e of EDGES) {
+      if (e.a === hoverNodeId) active.add(e.b);
+      if (e.b === hoverNodeId) active.add(e.a);
+    }
+  }
+  if (hasTrace) {
+    for (const k of traceHighlight) {
+      const [a, b] = k.split('-');
+      active.add(a); active.add(b);
+    }
+  }
+  return active;
+}
+
+function smoothCamera() {
+  const ease = 0.06;
+  cam.x += (cam.tx - cam.x) * ease;
+  cam.y += (cam.ty - cam.y) * ease;
+  cam.scale += (cam.ts - cam.scale) * ease;
+}
+
+function applyTransform() {
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.translate(cw / 2 + cam.x, ch / 2 + cam.y);
+  ctx.scale(cam.scale, cam.scale);
+}
+
+function render() {
+  if (!cw || !ch) resizeCanvas();
+  // PROPERLY clear canvas — use raw pixel dimensions, identity transform
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, cv.width, cv.height);
+
+  // run sim a bit each frame
+  tickSim(0.85);
+  smoothCamera();
+  applyTransform();
+
+  // Decide which nodes are "active" (full alpha) vs "fading in" (during zoom-out)
+  let zoomFade = 1;
+  if (zoomingOut) {
+    const elapsed = (performance.now() - zoomStartTime) / 1000;
+    zoomFade = Math.min(1, elapsed / 1.4);
+    if (elapsed > 2.4) zoomingOut = false;
+  }
+
+  // Edges
+  for (const e of EDGES) {
+    const a = NODES.find(n => n.id === e.a);
+    const b = NODES.find(n => n.id === e.b);
+    if (!a || !b) continue;
+    const inPeek = a.inPeek && b.inPeek && e.peek;
+    const visible = claimed || inPeek;
+    if (!visible) continue;
+    let alpha = 1;
+    if (claimed && !inPeek && zoomingOut) alpha = zoomFade;
+    drawEdge(a, b, e, alpha);
+  }
+
+  // Nodes — smoothly interpolate per-node alpha so fade in/out is gentle
+  const activeSet = getActiveNodeSet();
+  for (const n of NODES) {
+    const inPeek = n.inPeek;
+    const visible = claimed || inPeek;
+    if (!visible) continue;
+    let targetAlpha = 1;
+    if (claimed && !inPeek && zoomingOut) targetAlpha = zoomFade;
+    if (activeSet && !activeSet.has(n.id)) targetAlpha *= 0.22;
+
+    // smooth interpolation
+    if (n._alpha === undefined) n._alpha = targetAlpha;
+    n._alpha += (targetAlpha - n._alpha) * 0.18;
+    const alpha = n._alpha;
+
+    const isSelected = n.id === selId;
+    const isHover = n.id === hoverNodeId;
+    drawNode(n, isSelected, isHover, alpha);
+  }
+
+  nodeAnimT++;
+  requestAnimationFrame(render);
+}
+
+/* ════════════════════════════════════════
+   FLOW
+═══════════════════════════════════════ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo(0, 0);
+}
+
+function goPeek() {
+  if (!sim.initialized) initSim();
+  showScreen('s-map');
+  setTimeout(() => {
+    resizeCanvas();
+    // pre-warm sim a few ticks so peek positions stabilize
+    for (let i = 0; i < 80; i++) tickSim(1);
+    fitCameraToVisible(false, 80);
+    document.getElementById('tb-claim').classList.add('show');
+    typePeekIntro();
+    setTimeout(() => document.getElementById('g-hint').classList.add('show'), 1400);
+    setTab('why');
+    if (!renderRunning) { renderRunning = true; render(); }
+  }, 80);
+}
+
+function showSoftWall() {
+  document.getElementById('soft-wall').classList.add('on');
+}
+
+function goClaim() {
+  document.getElementById('soft-wall').classList.remove('on');
+  showScreen('s-claim');
+  setTimeout(() => document.getElementById('c-name').focus(), 400);
+  checkClaim();
+}
+
+function pickRole(role) {
+  U.role = role;
+  document.querySelectorAll('.role-opt').forEach(el => el.classList.remove('on'));
+  document.querySelector(`.role-opt[data-role="${role}"]`).classList.add('on');
+  checkClaim();
+}
+
+function checkClaim() {
+  const name = document.getElementById('c-name').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const ok = name.length > 1 && email.includes('@') && email.includes('.') && U.role;
+  document.getElementById('claim-submit').classList.toggle('rdy', ok);
+}
+
+function finishClaim() {
+  U.name = document.getElementById('c-name').value.trim() || 'You';
+  U.email = document.getElementById('c-email').value.trim();
+  U.focus = document.getElementById('c-focus').value.trim();
+  const youNode = NODES.find(n => n.id === 'you');
+  youNode.label = U.name;
+  youNode.sub = U.role + ' · CODE' + (U.focus ? ' · ' + U.focus : '');
+  // update the membership edge with the chosen role
+  const edge = EDGES.find(e => e.a === 'you' && e.b === 'code');
+  if (edge) edge.role = U.role;
+  claimed = true;
+
+  showScreen('s-map');
+  document.getElementById('tb-status').textContent = '· claimed · full network visible';
+  document.getElementById('tb-status').classList.add('live');
+  document.getElementById('tb-claim').classList.remove('show');
+  document.getElementById('tb-add').classList.add('show');
+  document.getElementById('peek-intro').classList.add('fade');
+  document.getElementById('g-hint').textContent = 'click any node · use the trace tab to reveal a path';
+
+  setTimeout(() => {
+    resizeCanvas();
+    // pre-warm sim with all nodes — gives a bit of unfurling motion
+    for (let i = 0; i < 30; i++) tickSim(1);
+    // start dramatic zoom-out
+    zoomingOut = true;
+    zoomStartTime = performance.now();
+    // start zoomed-in on YOU
+    cam.x = 0; cam.y = 0; cam.scale = 1.4;
+    cam.tx = 0; cam.ty = 0; cam.ts = 1.4;
+    // after a beat, fit to all
+    setTimeout(() => {
+      // continue warming sim while we zoom out
+      let warmIv = setInterval(() => { for (let i = 0; i < 6; i++) tickSim(1); }, 30);
+      setTimeout(() => clearInterval(warmIv), 1500);
+      fitCameraToVisible(true, 100);
+    }, 600);
+    setTab('why');
+    setTimeout(() => {
+      document.getElementById('outro').classList.add('on');
+    }, 4200);
+  }, 100);
+}
+
+function resetDemo() {
+  claimed = false;
+  zoomingOut = false;
+  U.name = '';
+  U.email = '';
+  U.focus = '';
+  U.role = null;
+  document.getElementById('c-name').value = '';
+  document.getElementById('c-email').value = '';
+  document.getElementById('c-focus').value = '';
+  document.getElementById('claim-submit').classList.remove('rdy');
+  document.querySelectorAll('.role-opt').forEach(el => el.classList.remove('on'));
+  document.getElementById('tb-status').textContent = 'peek mode';
+  document.getElementById('tb-status').classList.remove('live');
+  document.getElementById('tb-add').classList.remove('show');
+  const youNode = NODES.find(n => n.id === 'you');
+  youNode.label = 'You';
+  youNode.sub = 'member of CODE';
+  const edge = EDGES.find(e => e.a === 'you' && e.b === 'code');
+  if (edge) edge.role = 'member';
+  selId = 'you';
+  traceTarget = null;
+  lastTrace = null;
+  traceHighlight = null;
+  // reset sim
+  sim.initialized = false;
+  // remove any user-created nodes/edges (anything starting with new- or ghost-)
+  for (let i = NODES.length - 1; i >= 0; i--) {
+    if (NODES[i].id.startsWith('new-') || NODES[i].id.startsWith('ghost-')) NODES.splice(i, 1);
+  }
+  for (let i = EDGES.length - 1; i >= 0; i--) {
+    if (EDGES[i].a.startsWith('new-') || EDGES[i].b.startsWith('new-') ||
+        EDGES[i].a.startsWith('ghost-') || EDGES[i].b.startsWith('ghost-')) EDGES.splice(i, 1);
+  }
+  // close create panel if open
+  closeCreatePanel();
+  // reset create state
+  create.type = null;
+  create.ptype = null;
+  create.collabs = [];
+  // clear create panel form (in case the user opens it again in a new walkthrough)
+  const titleEl = document.getElementById('cp-title');
+  const descEl = document.getElementById('cp-desc');
+  const urlEl = document.getElementById('cp-url');
+  if (titleEl) titleEl.value = '';
+  if (descEl) descEl.value = '';
+  if (urlEl) urlEl.value = '';
+  document.querySelectorAll('.cp-type').forEach(el => el.classList.remove('on'));
+  document.querySelectorAll('.cp-ptype').forEach(el => el.classList.remove('on'));
+  const ptySection = document.getElementById('cp-ptype-section');
+  if (ptySection) ptySection.style.display = 'none';
+  const urlMark = document.getElementById('cp-url-mark');
+  if (urlMark) urlMark.classList.remove('show');
+  const submitBtn = document.getElementById('cp-submit');
+  if (submitBtn) submitBtn.classList.remove('rdy');
+  initSim();
+  document.getElementById('peek-intro').classList.remove('show', 'fade');
+  document.getElementById('g-hint').classList.remove('show');
+  showScreen('s-email');
+}
+
+let renderRunning = false;
+
+window.addEventListener('resize', () => {
+  if (document.getElementById('s-map').classList.contains('on')) {
+    resizeCanvas();
+    fitCameraToVisible(true, claimed ? 100 : 80);
+  }
+});
+
+/* ════════════════════════════════════════
+   INTERACTION
+═══════════════════════════════════════ */
+function screenToWorld(sx, sy) {
+  return {
+    x: (sx - cw / 2 - cam.x) / cam.scale,
+    y: (sy - ch / 2 - cam.y) / cam.scale,
+  };
+}
+
+function nodeAt(sx, sy) {
+  const w = screenToWorld(sx, sy);
+  for (let i = NODES.length - 1; i >= 0; i--) {
+    const n = NODES[i];
+    if (!claimed && !n.inPeek) continue;
+    const sn = sim.nodes[n.id];
+    if (!sn) continue;
+    const r = nodeRadius(n, n.id === selId);
+    const dx = sn.x - w.x, dy = sn.y - w.y;
+    if (dx * dx + dy * dy < (r + 4) * (r + 4)) return n;
+  }
+  return null;
+}
+
+cv.addEventListener('mousedown', e => {
+  const rect = cv.getBoundingClientRect();
+  const sx = e.clientX - rect.left, sy = e.clientY - rect.top;
+  const n = nodeAt(sx, sy);
+  if (n) {
+    selNode(n.id);
+    return;
+  }
+  isDragging = true;
+  dragStart = { x: e.clientX, y: e.clientY, camX: cam.x, camY: cam.y };
+});
+
+cv.addEventListener('mousemove', e => {
+  const rect = cv.getBoundingClientRect();
+  const sx = e.clientX - rect.left, sy = e.clientY - rect.top;
+  const n = nodeAt(sx, sy);
+  hoverNodeId = n ? n.id : null;
+  cv.style.cursor = isDragging ? 'grabbing' : (n ? 'pointer' : 'grab');
+  if (isDragging && dragStart) {
+    const dx = e.clientX - dragStart.x;
+    const dy = e.clientY - dragStart.y;
+    if (!claimed) {
+      // soft-wall: limit how far you can drag
+      const max = 100;
+      const newX = dragStart.camX + dx;
+      const newY = dragStart.camY + dy;
+      if (Math.abs(newX) > max + 60 || Math.abs(newY) > max + 60) {
+        showSoftWall();
+      }
+      cam.x = Math.max(-max, Math.min(max, newX));
+      cam.y = Math.max(-max, Math.min(max, newY));
+      cam.tx = cam.x; cam.ty = cam.y;
+    } else {
+      cam.x = dragStart.camX + dx;
+      cam.y = dragStart.camY + dy;
+      cam.tx = cam.x; cam.ty = cam.y;
+    }
+  }
+});
+
+window.addEventListener('mouseup', () => { isDragging = false; });
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('soft-wall').classList.remove('on');
+    closeCreatePanel();
+  }
+});
+
+cv.addEventListener('wheel', e => {
+  e.preventDefault();
+  if (!claimed) {
+    showSoftWall();
+    return;
+  }
+  const z = e.deltaY > 0 ? 0.93 : 1.075;
+  cam.ts = Math.max(0.4, Math.min(2.5, cam.ts * z));
+  // also nudge instant scale a bit so it feels responsive
+  cam.scale = cam.scale * (z * 0.5 + 0.5);
+}, { passive: false });
+
+/* ════════════════════════════════════════
+   PANEL
+═══════════════════════════════════════ */
+function setTab(t) {
+  activeTab = t;
+  document.querySelectorAll('.rpt').forEach(el => el.classList.remove('on'));
+  document.getElementById('tab-' + t).classList.add('on');
+  renderPanel();
+}
+
+function selNode(id) {
+  selId = id;
+  if (activeTab === 'trace') traceTarget = id === 'you' ? null : id;
+  renderPanel();
+}
+
+function getInitials(label) {
+  if (!label) return '?';
+  if (label === 'You') return 'Y';
+  if (label === 'CODE Peer') return 'C';
+  return label.split(' ').filter(w => w.length > 0).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+}
+
+function getMembers(orgId) {
+  return EDGES
+    .filter(e => e.b === orgId && e.kind === 'membership' && (claimed || e.peek))
+    .map(e => ({ id: e.a, role: e.role }));
+}
+
+function getSubProjects(seriesId) {
+  return EDGES
+    .filter(e => e.b === seriesId && e.kind === 'sub')
+    .map(e => ({ id: e.a }));
+}
+
+function getParticipants(projId) {
+  return EDGES
+    .filter(e => e.b === projId && (NODES.find(n => n.id === e.a)?.type === 'person' || e.a === 'you'))
+    .map(e => ({ id: e.a, role: e.role }));
+}
+
+function getWhyText(n) {
+  if (n.id === 'you') {
+    return claimed
+      ? `This is your node. Everything in the map orbits around what you've contributed and the organizations you're part of. <strong>You connect to other people only through the projects and organizations you share — never directly.</strong>`
+      : `This is your node. CODE University listed you as a member. <strong>Claim your node to see the rest of the web.</strong>`;
+  }
+  if (n.id === 'code') {
+    return `<strong>CODE University of Applied Sciences</strong> is the organization that brought you into Vínculo — a project-based university in Berlin. As an organization, CODE is a <em>structure that hosts multiple people and projects</em> over time. Your connection to anyone else inside CODE routes through this node.`;
+  }
+  if (n.id === 'mercedes') {
+    return `<strong>Mercedes Torrendell</strong> is a fellow member of CODE — also a student. You and Mercedes are <em>not directly connected</em>. Your connection runs through CODE University: she's a node, you're a node, and CODE is the organization that links you. <span class="struct-note">This is the core rule of Vínculo: people connect through what they share, not by following each other.</span>`;
+  }
+  if (n.id === 'code-peer') {
+    return `Another member of CODE — a <em>ghost node</em>. Their name was added through the organization, but they haven't claimed their node yet. The connection still exists; the profile doesn't. <span class="struct-note">In Vínculo, names appear as credit even before the person joins.</span>`;
+  }
+  if (n.id === 'tci') {
+    return `<strong>The Creative Independent</strong> is the publication where Mercedes contributes an interview series. You're connected to TCI through Mercedes — through CODE, then through her contributions to TCI. This is what Vínculo makes legible: <em>second-degree organizational connections</em>.`;
+  }
+  if (n.id === 'series') {
+    return `<em>Tech & Creative Industries</em> is Mercedes's interview series — a <strong>project that contains other projects</strong>. The interviews under it (with César, Joseph, and the queued ones) are sub-projects. <span class="struct-note">A series is still a project. It's the way you group bounded works that share a thread.</span>`;
+  }
+  if (n.id === 'int-cesar') return `An <strong>interview</strong> Mercedes did with César Fieiras Ceide on AI in creative industries — published January 2026 in The Creative Independent. <span class="struct-note">An interview is a project: bounded, named, with the writer and the subject as participants. Both people are linked because of this one structure.</span>`;
+  if (n.id === 'int-joseph') return `An <strong>interview</strong> Mercedes did with Joseph Brett on slowness as a creative practice — published April 2026. <span class="struct-note">A bounded project. Mercedes and Joseph are linked because they both appear in it.</span>`;
+  if (n.id === 'int-roopa' || n.id === 'int-matt') return `An upcoming <strong>interview</strong>, queued for publication. <span class="struct-note">Already a node in the web before the byline — Vínculo holds the connection from the moment it's named.</span>`;
+  if (n.id === 'cesar') return `<strong>César Fieiras Ceide</strong>, researcher. He's not directly connected to you. He's connected to <em>Mercedes</em> through the interview project, and you're connected to Mercedes through CODE. <span class="struct-note">Trace the path to see the chain.</span>`;
+  if (n.id === 'joseph') return `<strong>Joseph Brett</strong>, animator and filmmaker. Connected to Mercedes through the interview project. You can reach him through her. <span class="struct-note">Two organizations away, but a real path.</span>`;
+  if (n.id === 'roopa' || n.id === 'matt') return `In conversation with Mercedes. ${n.label.split(' ')[0]} hasn't claimed a node yet — the upcoming interview will pull them in. <span class="struct-note">A queued node is real, even before publication.</span>`;
+  if (n.id === 'event-aiwomen') return `The <strong>AI Women's Breakfast</strong> at Merantix — an event Mercedes attended. <span class="struct-note">Events are projects too: bounded, named, with people who showed up.</span>`;
+  if (n.id === 'merantix') return `<strong>Merantix</strong> hosted the breakfast Mercedes attended. <span class="struct-note">An organization can connect to people through one specific event, not just through ongoing membership.</span>`;
+  if (n.id === 'softer' || n.id === 'ipb') return `<strong>${n.label}</strong> is in conversation about joining Vínculo's seed community. Forthcoming — like a ghost waiting to claim. <span class="struct-note">Organizations can also be ghost nodes.</span>`;
+  // user-created nodes
+  if (n.id.startsWith('new-')) {
+    const kindLabel = n.type === 'org' ? 'organization' : (n.ptype || 'project');
+    const desc = n.desc ? `<br><br><em>"${n.desc}"</em>` : '';
+    return `<strong>${n.label}</strong> is a <em>${kindLabel}</em> you just added to Vínculo.${desc} ${n.url ? `Verified by <em>${n.url}</em>.` : `No source URL — visible but unverified.`} <span class="struct-note">By naming this here, you've defined a structure. Everyone you listed is now connected to you through it — and to each other.</span>`;
+  }
+  if (n.id.startsWith('ghost-')) {
+    return `<strong>${n.label}</strong> is a ghost node — named by you when you added a project, but they haven't claimed yet. <span class="struct-note">${n.bio.includes('email') ? 'They received an invite email and may claim soon.' : 'No email was provided, so they exist as credit only — name on the map, no profile.'}</span>`;
+  }
+  return `Connected through the network.`;
+}
+
+function renderPanel() {
+  const body = document.getElementById('rp-body');
+  const n = NODES.find(x => x.id === selId);
+  if (!n) { body.innerHTML = ''; return; }
+
+  const ini = getInitials(n.label);
+  const avClass = n.type === 'org' ? 'org' : (n.type === 'series' || n.type === 'subproject' || n.type === 'event' ? 'proj' : '');
+
+  if (activeTab === 'why') {
+    // determine if this is a project — if so we'll show "what happened" first
+    const isProject = n.type === 'series' || n.type === 'subproject' || n.type === 'event';
+    let html = `
+      <div class="p-head">
+        <div class="p-av ${avClass}">${ini}</div>
+        <div>
+          <div class="p-name">${n.label}</div>
+          <div class="p-sub">${n.sub || n.type}</div>
+        </div>
+      </div>
+    `;
+
+    // FOR PROJECTS: show "what happened" line first, separate from the structural why
+    if (isProject && n.desc) {
+      html += `
+        <div class="p-section what-happened">
+          <span class="p-label">what happened</span>
+          <div class="p-text whp">${n.desc}</div>
+        </div>
+      `;
+    }
+
+    html += `
+      <div class="p-section">
+        <span class="p-label">${isProject ? 'why this is in your map' : 'why this is in your map'}</span>
+        <div class="p-text">${getWhyText(n)}</div>
+      </div>
+    `;
+
+    if (n.url) {
+      html += `<div class="p-section">
+        <span class="p-label">verified by</span>
+        <a class="p-url" href="https://${n.url}" target="_blank">${n.url}</a>
+      </div>`;
+    } else if (n.queued || n.inTalks) {
+      html += `<div class="p-section">
+        <span class="p-label">status</span>
+        <div class="p-text" style="font-style:italic;color:var(--muted)">${n.queued ? 'Queued — interview in conversation, not yet published.' : 'In conversation — joining the seed community when ready.'}</div>
+      </div>`;
+    }
+
+    if (n.type === 'org') {
+      const members = getMembers(n.id);
+      if (members.length) {
+        html += `<div class="p-section"><span class="p-label">members</span>`;
+        for (const m of members) {
+          const mn = NODES.find(x => x.id === m.id);
+          if (!mn) continue;
+          const dotClass = mn.ghost || mn.queued ? 'ghost' : '';
+          html += `<div class="p-list-item" onclick="selNode('${m.id}')">
+            <div class="p-list-dot ${dotClass}"></div>
+            <span class="p-list-name">${mn.id === 'you' ? (claimed ? U.name : 'You') : mn.label}</span>
+            <span class="p-list-role">${m.role}</span>
+          </div>`;
+        }
+        html += `</div>`;
+      }
+    } else if (n.type === 'series') {
+      const subs = getSubProjects(n.id);
+      if (subs.length) {
+        html += `<div class="p-section"><span class="p-label">interviews in this series</span>`;
+        for (const s of subs) {
+          const sn = NODES.find(x => x.id === s.id);
+          if (!sn) continue;
+          const dotClass = sn.queued ? 'ghost' : 'sq';
+          html += `<div class="p-list-item" onclick="selNode('${s.id}')">
+            <div class="p-list-dot ${dotClass}"></div>
+            <span class="p-list-name">${sn.label.replace('Interview: ', '')}</span>
+            <span class="p-list-role">${sn.queued ? 'queued' : 'published'}</span>
+          </div>`;
+        }
+        html += `</div>`;
+      }
+    } else if (n.type === 'subproject' || n.type === 'event') {
+      const parts = getParticipants(n.id);
+      if (parts.length) {
+        html += `<div class="p-section"><span class="p-label">people on this</span>`;
+        for (const p of parts) {
+          const pn = NODES.find(x => x.id === p.id);
+          if (!pn) continue;
+          const dotClass = pn.queued || pn.ghost ? 'ghost' : '';
+          html += `<div class="p-list-item" onclick="selNode('${p.id}')">
+            <div class="p-list-dot ${dotClass}"></div>
+            <span class="p-list-name">${pn.id === 'you' ? (claimed ? U.name : 'You') : pn.label}</span>
+            <span class="p-list-role">${p.role}</span>
+          </div>`;
+        }
+        html += `</div>`;
+      }
+    } else if (n.type === 'person' || n.id === 'you') {
+      const projs = EDGES
+        .filter(e => e.a === n.id && (NODES.find(x => x.id === e.b)?.type !== 'person'))
+        .filter(e => claimed || e.peek)
+        .map(e => ({ id: e.b, role: e.role }));
+      if (projs.length) {
+        html += `<div class="p-section"><span class="p-label">${n.id === 'you' ? 'where you appear' : 'where they appear'}</span>`;
+        for (const p of projs) {
+          const pn = NODES.find(x => x.id === p.id);
+          if (!pn) continue;
+          const dotClass = pn.type === 'org' ? 'org' : 'sq';
+          html += `<div class="p-list-item" onclick="selNode('${p.id}')">
+            <div class="p-list-dot ${dotClass}"></div>
+            <span class="p-list-name">${pn.label}</span>
+            <span class="p-list-role">${p.role}</span>
+          </div>`;
+        }
+        html += `</div>`;
+      }
+    }
+
+    if (n.id !== 'you' && claimed) {
+      html += `<button class="trace-btn full" onclick="setTab('trace'); traceTarget='${n.id}'; runTrace();">✦ trace your connection</button>`;
+    } else if (n.id !== 'you' && !claimed) {
+      html += `<button class="trace-btn" onclick="showSoftWall()">✦ trace · claim to unlock</button>`;
+    }
+    body.innerHTML = html;
+
+  } else if (activeTab === 'trace') {
+    if (!claimed) {
+      body.innerHTML = `
+        <div class="p-section">
+          <span class="p-label">trace</span>
+          <div class="p-text">The trace reveals the path between you and any other node — through the projects and organizations you share. <em>Claim your node to unlock.</em></div>
+        </div>
+        <button class="trace-btn full" onclick="showSoftWall()">Claim your node →</button>
+      `;
+      return;
+    }
+    if (!traceTarget || traceTarget === 'you') {
+      body.innerHTML = `
+        <div class="p-section">
+          <span class="p-label">trace</span>
+          <div class="p-text">Select a person or organization on the map. The trace will draw the path from <strong>you</strong> to them, through the projects and organizations that connect you.</div>
+        </div>
+      `;
+      return;
+    }
+    const target = NODES.find(x => x.id === traceTarget);
+    const path = computePath('you', traceTarget);
+    body.innerHTML = `
+      <div class="p-section">
+        <span class="p-label">${U.name || 'You'} → ${target.label.replace('Interview: ', '')}</span>
+        <div class="path-line">${renderPath(path)}</div>
+      </div>
+      <div class="p-section">
+        <span class="p-label">how you're connected</span>
+        <div class="trace-result" id="trace-result">${lastTrace && lastTrace.target === traceTarget ? lastTrace.text : 'Tracing...'}</div>
+      </div>
+      <button class="trace-btn full" onclick="runTrace()">✦ ${lastTrace && lastTrace.target === traceTarget ? 'trace again' : 'trace this'}</button>
+    `;
+
+  } else if (activeTab === 'info') {
+    // The "info" tab serves two purposes:
+    //  - When YOU is selected: shows the "how this works" explainer (node system + rule + example)
+    //  - When any other node is selected: shows that node's bio + source
+    if (n.id === 'you') {
+      body.innerHTML = `
+        <div class="info-block">
+          <div class="info-h">How <em>Vínculo</em> works</div>
+          <div class="info-p">Vínculo is a network that maps how people are connected through the projects and organizations they have actually been part of. Not a map of who follows who — a map of who shows up where, with whom, doing what.</div>
+        </div>
+
+        <div class="info-block">
+          <span class="p-label">three node types</span>
+          <div class="node-types">
+            <div class="node-type-row">
+              <div class="nt-icon person"></div>
+              <div>
+                <div class="nt-name">Person</div>
+                <div class="nt-desc">An individual. You, Mercedes, César, anyone who participates. People are the <em>endpoints</em> of connections, never the connection itself.</div>
+              </div>
+            </div>
+            <div class="node-type-row">
+              <div class="nt-icon project"></div>
+              <div>
+                <div class="nt-name">Project</div>
+                <div class="nt-desc">A bounded thing that happened — interview, event, article, residency, workshop. Has a beginning, an end, and people attached to it. <em>This is a connection point.</em></div>
+              </div>
+            </div>
+            <div class="node-type-row">
+              <div class="nt-icon org"></div>
+              <div>
+                <div class="nt-name">Organization</div>
+                <div class="nt-desc">An ongoing structure — studio, publication, university, collective. Hosts projects and members over time. <em>This is also a connection point.</em></div>
+              </div>
+            </div>
+          </div>
+          <div class="info-p" style="margin-top:14px;font-size:12px;font-style:italic;color:var(--muted)">A "series" is not a separate type — it's a project that contains other projects. Same node, different role.</div>
+        </div>
+
+        <div class="info-block">
+          <div class="rule-card">
+            <div class="rule-eyebrow">the rule</div>
+            <div class="rule-text">People are <em>never</em> connected directly. Every connection passes <strong>through</strong> a project or an organization.</div>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <span class="p-label">a concrete example</span>
+          <div class="example-card">
+            <div class="example-eyebrow">in this map</div>
+            <div class="example-text">You and <strong>Mercedes</strong> are not directly linked. You are both members of <em>CODE University</em>. CODE is the node that creates your relationship.<br><br>Mercedes is not directly linked to <strong>Matthew Preberg</strong> either. Their connection passes through the <em>interview project</em> she's preparing with him. The project is the link.</div>
+          </div>
+          <div class="info-p" style="margin-top:14px">Click on any node in the map to see how it sits in your network. Use <strong>trace</strong> to draw the full path between any two nodes.</div>
+        </div>
+
+        <div class="info-block">
+          <span class="p-label">discovery</span>
+          <div class="info-p">In Vínculo, you don't discover people by popularity, follower counts, or algorithmic suggestion. You discover them through <em>shared work</em> — the projects, organizations, and events you have already been part of.</div>
+        </div>
+      `;
+    } else {
+      body.innerHTML = `
+        <div class="p-head">
+          <div class="p-av ${avClass}">${ini}</div>
+          <div>
+            <div class="p-name">${n.label}</div>
+            <div class="p-sub">${n.sub || n.type}</div>
+          </div>
+        </div>
+        <div class="p-section"><span class="p-label">about</span><div class="p-text">${n.bio || ''}</div></div>
+        ${n.url ? `<div class="p-section"><span class="p-label">source</span><a class="p-url" href="https://${n.url}" target="_blank">${n.url}</a></div>` : ''}
+        <div class="p-section"><span class="p-label">node type</span><div class="p-text">${
+          n.type === 'org' ? '<strong>Organization</strong> — an ongoing structure that hosts projects and members over time. Connections through this node are <em>memberships</em>.' :
+          n.type === 'series' ? '<strong>Project</strong> — specifically a <em>series</em>: a project that contains other projects (interviews, issues, episodes). Connections through this node are participations.' :
+          n.type === 'subproject' ? '<strong>Project</strong> — a bounded, named piece of work. Something that actually happened, with a beginning and an end. Connections through this node are participations.' :
+          n.type === 'event' ? '<strong>Project</strong> — specifically an <em>event</em>: a one-time occasion with people who showed up. Events are projects too.' :
+          '<strong>Person</strong> — an individual. Connected to others only through shared projects and organizations, never directly.'
+        }</div></div>
+      `;
+    }
+  }
+}
+
+/* ════════════════════════════════════════
+   PATH + TRACE
+═══════════════════════════════════════ */
+function computePath(fromId, toId) {
+  const adj = {};
+  for (const e of EDGES) {
+    if (!claimed && !e.peek) continue;
+    adj[e.a] = adj[e.a] || []; adj[e.a].push(e.b);
+    adj[e.b] = adj[e.b] || []; adj[e.b].push(e.a);
+  }
+  const q = [[fromId]];
+  const seen = new Set([fromId]);
+  while (q.length) {
+    const path = q.shift();
+    const last = path[path.length - 1];
+    if (last === toId) return path;
+    for (const nb of (adj[last] || [])) {
+      if (!seen.has(nb)) {
+        seen.add(nb);
+        q.push([...path, nb]);
+      }
+    }
+  }
+  return null;
+}
+
+function renderPath(path) {
+  if (!path || !path.length) return '<span style="color:var(--muted)">no path yet</span>';
+  return path.map((id, i) => {
+    const n = NODES.find(x => x.id === id);
+    const lit = i === path.length - 1 ? 'lit' : '';
+    const label = n ? (n.id === 'you' ? (U.name ? U.name.split(' ')[0] : 'You') : n.label.replace('Interview: ', '')) : id;
+    return `${i > 0 ? '<span class="path-arr">→</span>' : ''}<span class="path-step ${lit}" onclick="selNode('${id}')">${label}</span>`;
+  }).join('');
+}
+
+function buildTraceText(targetId) {
+  const target = NODES.find(n => n.id === targetId);
+  const path = computePath('you', targetId);
+  if (!path) return `There is currently no path between you and <span class="hi">${target.label}</span>. <span class="bold">The connection doesn't exist yet — but it could.</span>`;
+
+  if (targetId === 'mercedes') return `You and <span class="hi">Mercedes Torrendell</span> are connected through <span class="hi">CODE University of Applied Sciences</span> — you are both members. <span class="bold">CODE is the node that creates the connection.</span> Without it, the link wouldn't exist.`;
+  if (targetId === 'code') return `<span class="hi">CODE University of Applied Sciences</span> is the organization that brought you into Vínculo. Your role there places you in the same node-orbit as everyone else listed in CODE.`;
+  if (targetId === 'code-peer') return `Another member of CODE — a ghost node. You are connected through the same organization, even though they haven't claimed yet. <span class="bold">The credit precedes the profile.</span>`;
+  if (targetId === 'tci') return `You reach <span class="hi">The Creative Independent</span> through <span class="hi">Mercedes</span>. She's a fellow CODE member, and a contributing writer at TCI. Two organizational hops, but a real path. <span class="bold">This is what Vínculo makes legible.</span>`;
+  if (targetId === 'cesar') return `You and <span class="hi">César Fieiras Ceide</span> are connected through Mercedes — you share CODE with her, and she interviewed César for <span class="hi">Tech & Creative Industries</span> in The Creative Independent. The conversation circled <span class="bold">cognitive debt — what we lose when machines think for us</span>.`;
+  if (targetId === 'joseph') return `You reach <span class="hi">Joseph Brett</span> through Mercedes's interview with him on <span class="bold">slowness as a creative practice</span>. Three nodes away — you, CODE, Mercedes, the interview, Joseph. <span class="bold">The path is real.</span>`;
+  if (targetId === 'roopa') return `You and <span class="hi">Roopa</span> are connected through an interview Mercedes is preparing with her. The piece is queued for publication. <span class="bold">Already a node, even before the byline.</span>`;
+  if (targetId === 'matt') return `You and <span class="hi">Matthew Preberg</span> are in conversation through Mercedes's upcoming interview. <span class="bold">The connection precedes the publication.</span>`;
+  if (targetId === 'merantix') return `You reach <span class="hi">Merantix</span> through Mercedes — she attended the AI Women's Breakfast they hosted. <span class="bold">A single event is enough to put a person and an org on the same path.</span>`;
+  if (targetId === 'event-aiwomen') return `Mercedes attended the <span class="hi">AI Women's Breakfast</span> at Merantix. <span class="bold">Events are projects too: bounded, named, with people who showed up.</span>`;
+  if (targetId === 'softer' || targetId === 'ipb') return `<span class="hi">${target.label}</span> is in conversation about joining Vínculo's seed community. <span class="bold">When the conversation lands, the map updates.</span>`;
+  if (targetId === 'series') return `<span class="hi">Tech & Creative Industries</span> is Mercedes's interview series. You reach it through her — through CODE first, then through her contributions. <span class="bold">Three hops, one path.</span>`;
+  if (targetId.startsWith('int-')) {
+    const intId = targetId.replace('int-', '');
+    const n = NODES.find(x => x.id === intId);
+    return `An interview between Mercedes and <span class="hi">${n ? n.label : ''}</span> in the <span class="hi">Tech & Creative Industries</span> series. ${target.queued ? '<span class="bold">Queued for publication — already a node.</span>' : '<span class="bold">Published.</span>'} You reach it through Mercedes.`;
+  }
+  return `You and <span class="hi">${target.label}</span> are connected through your shared appearance in the network.`;
+}
+
+function runTrace() {
+  if (!traceTarget) return;
+  const text = buildTraceText(traceTarget);
+  lastTrace = { target: traceTarget, text };
+  // build trace highlight set
+  const path = computePath('you', traceTarget);
+  traceHighlight = new Set();
+  if (path) {
+    for (let i = 0; i < path.length - 1; i++) {
+      traceHighlight.add(`${path[i]}-${path[i+1]}`);
+      traceHighlight.add(`${path[i+1]}-${path[i]}`);
+    }
+  }
+  setTab('trace');
+  setTimeout(() => {
+    const out = document.getElementById('trace-result');
+    if (!out) return;
+    const tmp = document.createElement('div'); tmp.innerHTML = text;
+    const raw = tmp.textContent;
+    out.innerHTML = '';
+    let i = 0;
+    const iv = setInterval(() => {
+      if (i >= raw.length) { clearInterval(iv); out.innerHTML = text; return; }
+      out.textContent += raw[i]; i++;
+    }, 14);
+  }, 60);
+}
+
+/* ════════════════════════════════════════
+   PEEK INTRO
+═══════════════════════════════════════ */
+function typePeekIntro() {
+  const el = document.getElementById('peek-intro');
+  el.innerHTML = `<span class="em">peek mode</span><br>You're seeing your network through the work you've participated in. CODE University named you in Vínculo. Around you: the org that pulled you in, and the people connected to it. Claim your node to unfurl the rest.`;
+  setTimeout(() => el.classList.add('show'), 400);
+}
+
+/* ════════════════════════════════════════
+   CREATE-PROJECT FLOW
+═══════════════════════════════════════ */
+const create = {
+  type: null,        // 'project' or 'org'
+  ptype: null,       // 'interview' | 'event' | 'article' | 'series' | etc. (only when type === 'project')
+  collabs: [],
+  nextId: 0,
+};
+
+function openCreatePanel() {
+  document.getElementById('create-panel').classList.add('on');
+  if (create.collabs.length === 0) {
+    addCollab();
+  }
+  renderCollabs();
+}
+
+function closeCreatePanel() {
+  document.getElementById('create-panel').classList.remove('on');
+}
+
+function pickType(type) {
+  create.type = type;
+  document.querySelectorAll('.cp-type').forEach(el => el.classList.remove('on'));
+  document.querySelector(`.cp-type[data-type="${type}"]`).classList.add('on');
+  // show/hide project-type section
+  const pty = document.getElementById('cp-ptype-section');
+  pty.style.display = type === 'project' ? 'block' : 'none';
+  // update URL helper
+  const lbl = document.getElementById('cp-url-label');
+  if (type === 'org') {
+    lbl.innerHTML = `source url <span class="cp-url-helper">(required for organizations)</span>`;
+  } else {
+    lbl.innerHTML = `source url <span class="cp-url-helper">(optional · adds verification)</span>`;
+  }
+  checkCreate();
+}
+
+function pickPType(ptype) {
+  create.ptype = ptype;
+  document.querySelectorAll('.cp-ptype').forEach(el => el.classList.remove('on'));
+  document.querySelector(`.cp-ptype[data-ptype="${ptype}"]`).classList.add('on');
+  // give project-type-specific guidance in the helper
+  const note = document.getElementById('cp-ptype-note');
+  if (ptype === 'series') {
+    note.innerHTML = `A <em>series</em> is a project that contains other projects. After adding it, you can attach individual interviews, events, or issues to it as sub-projects.`;
+  } else if (ptype === 'event') {
+    note.innerHTML = `An <em>event</em> is a one-time gathering. People who attended can be added as participants — events count as projects too.`;
+  } else if (ptype === 'interview') {
+    note.innerHTML = `An <em>interview</em> is a project that connects the writer, the subject, and any editors who shaped it.`;
+  } else if (ptype === 'residency') {
+    note.innerHTML = `A <em>residency</em> connects everyone who was there during it — residents, organizers, and the host organization.`;
+  } else {
+    note.innerHTML = `Pick the type that fits. <em>Series</em> is for projects that contain other projects.`;
+  }
+  checkCreate();
+}
+
+function checkUrl() {
+  const url = document.getElementById('cp-url').value.trim();
+  // simple pattern: contains a dot, no spaces, more than 4 chars
+  const looksValid = url.length > 4 && /\./.test(url) && !/\s/.test(url);
+  document.getElementById('cp-url-mark').classList.toggle('show', looksValid);
+}
+
+function addCollab() {
+  create.collabs.push({ id: create.nextId++, name: '', role: '', email: '' });
+  renderCollabs();
+}
+
+function removeCollab(id) {
+  create.collabs = create.collabs.filter(c => c.id !== id);
+  renderCollabs();
+}
+
+function updateCollab(id, field, val) {
+  const c = create.collabs.find(x => x.id === id);
+  if (c) c[field] = val;
+}
+
+function renderCollabs() {
+  const wrap = document.getElementById('cp-collabs');
+  wrap.innerHTML = create.collabs.map(c => `
+    <div class="cp-collab" data-id="${c.id}">
+      <input class="cp-input sm" placeholder="name" value="${c.name}" oninput="updateCollab(${c.id}, 'name', this.value)">
+      <input class="cp-input sm" placeholder="role (e.g. editor)" value="${c.role}" oninput="updateCollab(${c.id}, 'role', this.value)">
+      <input class="cp-input sm" placeholder="email (optional)" value="${c.email}" oninput="updateCollab(${c.id}, 'email', this.value)">
+      <button class="cp-rm-collab" onclick="removeCollab(${c.id})" title="remove">−</button>
+    </div>
+  `).join('');
+}
+
+function checkCreate() {
+  const title = document.getElementById('cp-title').value.trim();
+  const url = document.getElementById('cp-url').value.trim();
+  const urlValid = url.length > 4 && /\./.test(url) && !/\s/.test(url);
+  let ok = create.type && title.length > 1;
+  // projects require a project type
+  if (create.type === 'project' && !create.ptype) ok = false;
+  // orgs require URL
+  if (create.type === 'org' && !urlValid) ok = false;
+  document.getElementById('cp-submit').classList.toggle('rdy', ok);
+}
+
+function submitCreate() {
+  const title = document.getElementById('cp-title').value.trim();
+  const desc = document.getElementById('cp-desc').value.trim();
+  const url = document.getElementById('cp-url').value.trim();
+  if (!create.type || !title) return;
+
+  // node type: only 'org' or 'project' (with ptype as the flavor)
+  // visually, 'series' projects render differently — we tag them so the renderer can use a slightly different style
+  let nodeType, internalKind;
+  if (create.type === 'org') {
+    nodeType = 'org';
+    internalKind = 'org';
+  } else if (create.ptype === 'series') {
+    nodeType = 'series';     // visual flag for the renderer (square but warmer)
+    internalKind = 'project';
+  } else {
+    nodeType = 'subproject';  // generic project visual
+    internalKind = 'project';
+  }
+
+  const newId = 'new-' + Date.now();
+  const newNode = {
+    id: newId,
+    label: title,
+    type: nodeType,
+    ptype: create.ptype || null,
+    sub: nodeType === 'org'
+      ? 'organization · added by you'
+      : `project · ${create.ptype || 'general'} · added by you`,
+    url: url || null,
+    desc: desc || null,
+    bio: desc || (nodeType === 'org'
+      ? `An organization, added by you.`
+      : `A ${create.ptype || 'project'}, added by you.`),
+  };
+  NODES.push(newNode);
+
+  sim.nodes[newId] = {
+    x: 60 + Math.random() * 40 - 20,
+    y: 60 + Math.random() * 40 - 20,
+    vx: 0, vy: 0,
+  };
+
+  const youRole = nodeType === 'org' ? 'founder' : 'creator';
+  EDGES.push({ a: 'you', b: newId, role: youRole, kind: nodeType === 'org' ? 'membership' : 'creator' });
+
+  for (const c of create.collabs) {
+    const cleanName = c.name.trim();
+    if (!cleanName) continue;
+    const role = c.role.trim() || 'collaborator';
+    const email = c.email.trim();
+
+    const existing = NODES.find(n => n.type === 'person' && n.label.toLowerCase() === cleanName.toLowerCase());
+    let collabId;
+    if (existing) {
+      collabId = existing.id;
+    } else {
+      collabId = 'ghost-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6);
+      const ghostNode = {
+        id: collabId,
+        label: cleanName,
+        type: 'person',
+        sub: email ? 'invited · pending claim' : 'ghost · named only',
+        ghost: true,
+        bio: email
+          ? `${cleanName} was added by you with email ${email}. They have been sent an invitation to claim their node.`
+          : `${cleanName} was added by you as a ghost node — name only. No invite was sent. They appear as credit but have no profile.`,
+      };
+      NODES.push(ghostNode);
+      sim.nodes[collabId] = {
+        x: (Math.random() - 0.5) * 200,
+        y: (Math.random() - 0.5) * 200 + 100,
+        vx: 0, vy: 0,
+      };
+    }
+    EDGES.push({ a: collabId, b: newId, role: role, kind: 'participant' });
+  }
+
+  closeCreatePanel();
+  // reset form
+  create.type = null;
+  create.ptype = null;
+  create.collabs = [];
+  document.getElementById('cp-title').value = '';
+  document.getElementById('cp-desc').value = '';
+  document.getElementById('cp-url').value = '';
+  document.getElementById('cp-url-mark').classList.remove('show');
+  document.querySelectorAll('.cp-type').forEach(el => el.classList.remove('on'));
+  document.querySelectorAll('.cp-ptype').forEach(el => el.classList.remove('on'));
+  document.getElementById('cp-ptype-section').style.display = 'none';
+  document.getElementById('cp-submit').classList.remove('rdy');
+
+  for (let i = 0; i < 12; i++) tickSim(1);
+
+  selId = newId;
+  setTab('why');
+  fitCameraToVisible(true, 100);
+}
+</script>
+</body>
+</html>
