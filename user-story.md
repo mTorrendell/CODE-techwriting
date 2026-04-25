@@ -1,24 +1,79 @@
-# User Story — VITRO
+# User Story
 
-## Primary user story
+## Story 1 — Entering the network
 
-As a **museum shop manager**, I want to see how visitor behavior 
-from ticketing and footfall connects to retail sales, so that I 
-can make better decisions about product placement, inventory and 
-timing, without manually combining data from multiple tools.
+**Persona:** The Observer  
+
+**Story**
+
+As someone who does not actively present themselves online,  
+I want to see myself already connected to real work I’ve been part of,  
+so that I can understand my place in a network without having to build a profile.
+
+**Context**
+
+The user receives an invite after being tagged in a project.
+
+**Flow**
+
+- Opens the invite link  
+- Lands on a map where they are already present  
+- Sees the project they were part of and the people connected to it  
+- Explores their immediate network  
+
+**Outcome**
+
+The user recognizes themselves in the system without needing to perform or construct an identity.
 
 ---
 
-## Supporting user stories
+## Story 2 — Expanding the network
 
-As a **shop manager**, I want to know which exhibitions drive the 
-highest shop revenue, so that I can stock exhibition merchandise 
-before opening day rather than after.
+**Persona:** The Contributor  
 
-As a **shop manager**, I want to understand my average basket size 
-by visitor type, so that I can identify which customer segments 
-are most valuable and tailor the shop experience accordingly.
+**Story**
 
-As a **museum director**, I want a clear overview of shop 
-performance in relation to visitor numbers, so that I can report 
-meaningful commercial KPIs to the board.
+As someone who works with others across projects,  
+I want to add a project and name the people involved,  
+so that collaboration is properly represented and others become visible in the network.
+
+**Context**
+
+The user has claimed their node and has access to the full map.
+
+**Flow**
+
+- Adds a new project or organization  
+- Selects its type (project or organization)  
+- Names participants and assigns roles  
+- Submits the node  
+
+**Outcome**
+
+The network expands through real collaboration, and new or existing users become connected through shared work.
+
+---
+
+## Story 3 — Understanding a connection
+
+**Persona:** Both  
+
+**Story**
+
+As someone navigating the network,  
+I want to understand how I am connected to another person,  
+so that I can make sense of my relationship to them through shared work.
+
+**Context**
+
+The user is exploring the map from their own node.
+
+**Flow**
+
+- Selects another person in the network  
+- Views the path connecting them through projects and organizations  
+- Reads the explanation of how they are connected  
+
+**Outcome**
+
+The user understands their relationship to others through real participation, not assumed or superficial links.
