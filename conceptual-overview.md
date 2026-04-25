@@ -1,91 +1,99 @@
-# Conceptual Overview — How VITRO Works
+# Conceptual Overview
 
-An overview for shop managers and museum directors.
+## What is Vínculo
 
-> VITRO is not a replacement for your existing tools. It is an 
-> intelligence layer that sits on top of them — reading what they 
-> produce and turning it into something you can act on.
+Vínculo is a network that maps how people are connected through shared work.
 
----
+It does not represent relationships directly.  
+Instead, it reveals connections by tracing the projects and organizations people have participated in.
 
-## The problem VITRO solves
-
-A museum generates data every day across five separate systems: 
-ticketing, retail, CRM, footfall sensors, and web analytics. Each 
-system captures one part of the visitor picture. None of them talk 
-to each other.
-
-This means a visitor can appear across all five sources, browsing 
-the online shop, buying a ticket, scanning at the door, purchasing 
-a book, being a registered member, and no system connects those 
-five moments into one picture.
-
-The shop manager opens multiple tools, exports to spreadsheets, and 
-makes decisions based on incomplete information. The data was always 
-there. The connection was not.
+The system is built to reflect collaboration as it actually happens.
 
 ---
 
-## What VITRO does
+## The core rule
 
-VITRO connects to your existing tools via standard APIs. It reads 
-the data they produce, normalises it into a common format, and runs 
-analysis across all sources simultaneously.
+Vínculo operates on a single rule:
 
-The result is a unified view of your visitor and their relationship 
-with your shop: who they are, what exhibition they attended, what 
-they bought, how long they stayed, and how that compares to previous 
-patterns.
+**People do not connect directly.  
+They connect through shared work.**
 
-On top of this unified view, VITRO runs an AI layer that identifies 
-patterns, surfaces anomalies, and generates plain-language 
-recommendations. You do not need to interpret charts. VITRO tells 
-you what the data means.
+Every connection in the network must pass through a project or an organization.
+
+This rule defines the structure of the entire system.
 
 ---
 
-## Key concepts
+## Node types
 
-### The intelligence layer
+Vínculo operates with three node types:
 
-VITRO sits above your existing tools, not inside them. Your POS 
-system still processes transactions. Your ticketing platform still 
-manages bookings. VITRO reads what they produce. Setup is fast, 
-there is no risk to your existing workflows, and you can disconnect 
-VITRO at any time without losing any data.
+- **Person** — an individual participant  
+- **Project** — a bounded instance of work  
+- **Organization** — an ongoing structure  
 
-### The unified visitor
+Projects may have different types (e.g. interview, event, publication, series), but these do not introduce new node types.
 
-The central concept in VITRO is the unified visitor, a single 
-record that connects what one person did across all five data 
-sources. Where possible, VITRO links a retail transaction to a 
-ticket purchase to a CRM record. Where it cannot make that link 
-(for example, an anonymous in-store purchase), it still captures 
-the transaction.
-
-### Insights vs. reports
-
-VITRO generates two types of output:
-
-- **Reports** — structured data views: revenue by day, top products 
-  by exhibition, conversion rate over time
-- **Insights** — AI-generated observations in plain language: what 
-  happened, why it is significant, what action to consider
-
-Both are available in the dashboard. The weekly email digest contains 
-insights only.
-
-### Data freshness
-
-VITRO syncs with connected tools every 24 hours by default. Real-time 
-sync is available for POS systems that support webhook integration. 
-The dashboard displays the last sync time for each connected source.
+A series is treated as a project that can contain other projects.
 
 ---
 
-## What VITRO does not do
+## How connections work
 
-- VITRO does not replace your POS system, ticketing platform, or CRM.
-- VITRO does not store personal visitor data beyond what is needed to 
-  generate insights. It complies with GDPR.
-- VITRO does not make purchasing decisions automatically. It surfaces
+Connections in Vínculo are not direct.
+
+They are formed through participation:
+
+- A person contributes to a project  
+- A person is part of an organization  
+- A project can exist within an organization  
+
+This creates a structure where:
+
+- people are linked through shared activity  
+- roles define how they are connected  
+- connections can be traced through multiple steps  
+
+The network grows as new projects and organizations are added.
+
+---
+
+## What makes Vínculo different
+
+Most platforms represent people through profiles and direct relationships.
+
+Vínculo does not.
+
+- It does not use follows or connections  
+- It does not prioritize visibility or activity  
+- It does not measure popularity  
+
+Instead, it structures the network around participation.
+
+A person’s position is defined by:
+- what they have taken part in  
+- who they have worked with  
+- how those structures connect over time  
+
+---
+
+## What the system reveals
+
+Vínculo makes visible a network that already exists.
+
+It allows users to:
+- see their position within a structure of shared work  
+- understand how they are connected to others  
+- discover new people through real collaboration paths  
+
+Connections are not suggested or assumed.  
+They are traced through actual participation.
+
+---
+
+## Summary
+
+Vínculo is a system that maps collaboration through structure.
+
+It replaces direct relationships with shared context,  
+and reveals how people are connected through the work they have done.
