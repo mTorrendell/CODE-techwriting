@@ -49,6 +49,7 @@ Each edge includes a **role**, which describes how the connection exists (e.g. e
 
 ## Diagram — Network Structure
 
+```
 Person  
    │ (role: editor, participant, etc.)  
    ▼  
@@ -56,6 +57,7 @@ Project
    │ (belongs to)  
    ▼  
 Organization  
+```
 
 Multiple people connect through the same project:
 
@@ -103,6 +105,7 @@ Unclaimed participants appear as ghost nodes and can later be claimed.
 
 Invite → Peek → Claim → Expand → Contribute
 
+```
 [Invite]
    ↓
 User receives email and opens map
@@ -123,6 +126,7 @@ Full network becomes visible
 [Contribute]
    ↓
 User adds a project and names collaborators
+```
 
 ---
 
