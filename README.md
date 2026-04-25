@@ -1,55 +1,72 @@
-# VITRO
+# Vínculo
 
-### Retail intelligence for mid-size European museums
+> **Note:** This repository is part of the SE_07 Technical Documentation module at Code University Berlin.  
+> The project was initially developed around a different system (VITRO) and later pivoted to Vínculo to better align with my personal work.  
+> Earlier drafts are preserved as part of the documentation process.
 
-Every museum visit generates signals, tickets scanned, products sold, members logged, spaces counted. That data lives in up to five separate systems that never talk to each other. VITRO is the intelligence layer that connects them.
 
-It is built for cultural institutions with 20,000–100,000 annual visitors, VITRO brings to light actionable retail insights from data they already have, without replacing a single tool they use today.
+### A network where connection requires a shared thing
 
-> *The data is there. VITRO just makes it readable.*
+Vínculo is an invite-only network that maps how people are connected through the projects and organizations they have actually contributed to.
+
+You cannot connect to a person in Vínculo.
+
+Every connection must pass through something tangible, a project, a publication, an event, or an organization. No shared thing, no edge.
 
 ---
 
-## What problem does it solve?
+## Core idea
 
-Museum shop managers currently open multiple tools, export to spreadsheets, and make gut decisions. VITRO connects ticketing, POS, CRM, footfall and web analytics into one unified view (a dashboard). It uses AI to surface what it means and what to do next.
+Most platforms define connection as proximity, following, endorsing, or linking.
 
-## Who is it for?
+Vínculo defines connection as participation.
 
-- **Primary user:** Shop managers and heads of retail at mid-size European cultural institutions
-- **Buyer:** Museum directors and commercial directors
+If two people did not take part in the same thing, they are not connected.
 
-## What does it do?
+---
 
-- Connects data from ticketing, POS, CRM, footfall and web analytics into a single dashboard
-- Surfaces AI-generated insights: which exhibitions drive shop revenue, which visitor segments spend most, when to stock exhibition merchandise
-- Provides a weekly intelligence report with recommended actions
-- Works on top of existing tools — no migration, no replacement
+## The model
 
-## Data sources
+Vínculo is a graph with three node types:
 
-| Source | What VITRO pulls from it |
-|---|---|
-| POS / Retail | Product sales, basket size, channel, transaction timing |
-| Ticketing | Visitor numbers, exhibition attendance, ticket type, entry timing |
-| CRM | Member and donor data, repeat visit history, contact segments |
-| Footfall | Physical movement, dwell time, zone performance |
-| Web analytics | Online shop behavior, exhibition page visits, abandoned carts |
+- **Person** — someone who contributed  
+- **Project** — a bounded thing that was made  
+- **Organization** — an ongoing entity with members  
+
+Connections are defined by roles:
+
+- Person → Project (`writer`, `editor`, `participant`)
+- Person → Organization (`member`, `contributor`)
+- Project → Organization (`belongs_to`)
+
+There are **no direct person-to-person edges**.
+
+---
+
+## What makes it different
+
+- No profiles to build  
+- No followers or endorsements  
+- No scraping or auto-generated data  
+- Every node is named through real participation  
+- Credit is distributed across everyone involved  
+
+---
 
 ## Status
 
-VITRO is a thesis project built at Code University Berlin. The current prototype uses synthetic mock data to simulate the full data pipeline. Museum research interviews are ongoing across Berlin and Europe.
+This repository contains the technical documentation for the system and its concept prototype.
 
 ---
 
-## Documentation in this repo
+## Documentation
 
-- [Proto Persona](proto-persona.md) — who uses VITRO and why
-- [User Story](user-story.md) — what they are trying to achieve
-- [Procedural Guide](procedural-guide.md) — step-by-step: generating your first insight
-- [Conceptual Overview](conceptual-overview.md) — how VITRO works and why it is built this way
+- [Proto Persona](proto-persona.md) who this is for  
+- [User Story](user-story.md) what they are trying to do  
+- [Procedural Guide](procedural-guide.md) how to enter and use Vínculo  
+- [Conceptual Overview](conceptual-overview.md) what Vínculo is and why it exists  
 
 ---
 
-*SE_07 Technical Documentation — Code University Berlin, 2026*  
+*SE_07 Technical Documentation — Code University Berlin*
 *Project by Mercedes Torrendell*
