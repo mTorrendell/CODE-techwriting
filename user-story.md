@@ -7,7 +7,7 @@
 **Story**
 
 As someone who does not actively present themselves online,  
-I want to see myself already connected to real work I’ve been part of,  
+I want to see myself already connected to work I’ve participated in,  
 so that I can understand my place in a network without having to build a profile.
 
 **Context**
@@ -34,7 +34,7 @@ The user recognizes themselves in the system without needing to perform or const
 **Story**
 
 As someone who works with others across projects,  
-I want to add a project and name the people involved,  
+I want to add a project and include the people involved,  
 so that collaboration is properly represented and others become visible in the network.
 
 **Context**
@@ -62,7 +62,7 @@ The network expands through real collaboration, and new or existing users become
 
 As someone navigating the network,  
 I want to understand how I am connected to another person,  
-so that I can make sense of my relationship to them through shared work.
+so that I can understand my relationship to them through shared work.
 
 **Context**
 
@@ -76,4 +76,4 @@ The user is exploring the map from their own node.
 
 **Outcome**
 
-The user understands their relationship to others through real participation, not assumed or superficial links.
+The user understands their relationship to others through real participation rather than inferred or superficial connections.
