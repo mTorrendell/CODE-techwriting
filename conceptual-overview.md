@@ -1,26 +1,21 @@
 # Conceptual Overview
 
-## What is Vínculo
+## Purpose
 
-Vínculo is a network that maps how people are connected through shared work.
+This document explains how Vínculo is structured as a system.
 
-It does not represent relationships directly.  
-Instead, it reveals connections by tracing the projects and organizations people have participated in.
-
-The system is built to reflect collaboration as it actually happens.
+It focuses on how connections are formed, how the network is modeled, and how its components relate to each other.
 
 ---
 
 ## The core rule
 
-Vínculo operates on a single rule:
+All connections in Vínculo follow a single constraint:
 
 **People do not connect directly.  
-They connect through shared work.**
+They connect through shared participation in a project or organization.**
 
-Every connection in the network must pass through a project or an organization.
-
-This rule defines the structure of the entire system.
+This rule defines the structure of the network.
 
 ---
 
@@ -32,68 +27,69 @@ Vínculo operates with three node types:
 - **Project** — a bounded instance of work  
 - **Organization** — an ongoing structure  
 
-Projects may have different types (e.g. interview, event, publication, series), but these do not introduce new node types.
+Projects may include types (e.g. interview, event, publication, series), but these do not introduce additional node types.
 
 A series is treated as a project that can contain other projects.
 
 ---
 
-## How connections work
+## Relationships
 
-Connections in Vínculo are not direct.
-
-They are formed through participation:
+Connections are defined through participation:
 
 - A person contributes to a project  
 - A person is part of an organization  
-- A project can exist within an organization  
+- A project may exist within an organization  
 
-This creates a structure where:
+These relationships form the edges of the network.
 
-- people are linked through shared activity  
-- roles define how they are connected  
-- connections can be traced through multiple steps  
-
-The network grows as new projects and organizations are added.
+Each edge includes a **role**, which describes how the connection exists (e.g. editor, member, contributor).
 
 ---
 
-## What makes Vínculo different
+## Network structure
 
-Most platforms represent people through profiles and direct relationships.
+The network is a graph composed of:
 
-Vínculo does not.
+- nodes (people, projects, organizations)  
+- edges (relationships defined by roles)  
 
-- It does not use follows or connections  
-- It does not prioritize visibility or activity  
-- It does not measure popularity  
+There are no direct edges between people.
 
-Instead, it structures the network around participation.
-
-A person’s position is defined by:
-- what they have taken part in  
-- who they have worked with  
-- how those structures connect over time  
+All paths between individuals pass through one or more intermediate nodes.
 
 ---
 
-## What the system reveals
+## Traces
 
-Vínculo makes visible a network that already exists.
+A connection between two people can be understood by tracing a path through the network.
 
-It allows users to:
-- see their position within a structure of shared work  
-- understand how they are connected to others  
-- discover new people through real collaboration paths  
+A trace consists of:
+- a sequence of nodes  
+- the roles that define each step  
 
-Connections are not suggested or assumed.  
-They are traced through actual participation.
+This allows the system to explain how two individuals are connected through shared participation.
+
+---
+
+## Growth of the network
+
+The network grows through user contribution:
+
+- users add projects or organizations  
+- participants are named and assigned roles  
+- new nodes are created when needed  
+
+Unclaimed participants appear as nodes and can later be claimed.
 
 ---
 
 ## Summary
 
-Vínculo is a system that maps collaboration through structure.
+Vínculo is structured as a graph where:
 
-It replaces direct relationships with shared context,  
-and reveals how people are connected through the work they have done.
+- connections are indirect  
+- relationships are defined by roles  
+- participation is the basis of all links  
+
+The system represents collaboration as a structured network rather than a set of direct relationships.
