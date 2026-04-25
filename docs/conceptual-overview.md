@@ -49,10 +49,17 @@ Each edge includes a **role**, which describes how the connection exists (e.g. e
 
 ## Diagram — Network Structure
 
-Person ──(role)──> Project ──(belongs to)──> Organization  
-   ↑                          ↓  
- (role)                    (role)  
-   └────────── Person ───────┘
+Person  
+   │ (role: editor, participant, etc.)  
+   ▼  
+Project  
+   │ (belongs to)  
+   ▼  
+Organization  
+
+Multiple people connect through the same project:
+
+Person ──(role)──> Project <──(role)── Person
 
    
 ---
@@ -91,6 +98,31 @@ The network grows through user contribution:
 - new nodes are created when needed  
 
 Unclaimed participants appear as ghost nodes and can later be claimed.
+
+## Diagram — User Flow
+
+Invite → Peek → Claim → Expand → Contribute
+
+[Invite]
+   ↓
+User receives email and opens map
+
+[Peek]
+   ↓
+User sees themselves already connected to a project
+Limited exploration
+
+[Claim]
+   ↓
+User verifies identity and confirms role
+
+[Expand]
+   ↓
+Full network becomes visible
+
+[Contribute]
+   ↓
+User adds a project and names collaborators
 
 ---
 
