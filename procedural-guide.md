@@ -1,82 +1,106 @@
-# Procedural Guide — Generating Your First Insight
+# Procedural Guide
 
-A step-by-step guide for shop managers new to VITRO.
+## How to enter and use Vínculo
 
-> This guide walks you through connecting your first data source and 
-> reading your first insight report. It takes approximately 10 minutes.
-
----
-
-## Before you begin
-
-You will need:
-
-- A VITRO account (request access from your museum director)
-- Admin credentials for at least one existing tool — your POS system, 
-  ticketing platform, or Google Analytics
-- A web browser — VITRO runs entirely in the browser, no installation required
+This guide walks you through the first interaction with Vínculo — from receiving an invite to exploring the network.
 
 ---
 
-## Step 1 — Log in to VITRO
+## 1. Receive an invite
 
-1. Go to `app.vitro.io` in your browser.
-2. Enter your email address and password.
-3. Click **Sign in**.
+You enter Vínculo by invitation.
 
-You will land on the Overview dashboard. If this is your first login, 
-the dashboard will be empty. That is expected — you have not connected 
-any data yet.
+You may receive an email because:
+- someone added you to a project or organization  
+- someone invited you directly  
 
----
-
-## Step 2 — Connect your first data source
-
-1. Click **Connect a source** in the top navigation bar.
-2. Select your tool from the list. VITRO supports gomus, KORONA, 
-   TicketCo, Weezevent, Google Analytics, and others.
-3. Follow the on-screen authentication steps for your selected tool. 
-   This typically takes 2–3 minutes.
-4. Click **Save connection** when done.
-
-VITRO will begin pulling data from your selected source. The first sync 
-takes up to 5 minutes depending on how much historical data your tool has.
-
-> You do not need to connect all five sources at once. VITRO generates 
-> insights from whatever data it has. Connect more sources over time to 
-> improve the quality of insights.
+The email contains a link to open the map.
 
 ---
 
-## Step 3 — Read your first insight
+## 2. Open the map
 
-1. Click **Overview** in the left sidebar.
-2. Scroll to the **Insights** panel on the right side of the dashboard.
-3. Read the highlighted insight. Each insight includes: what happened, 
-   why it matters, and what to do next.
+Click the invite link.
 
-Example insight: *"Saturday revenue was 34% above your weekly average. 
-This correlated with the Bauhaus exhibition opening. Consider stocking 
-exhibition merchandise 48 hours before future openings."*
+You will not land on a login page.  
+You will land directly on a map.
 
----
+On the map:
+- you appear as a node  
+- you are connected to a project or organization  
+- other people connected to that node are visible  
 
-## Step 4 — Explore the data behind the insight
+At this stage, you can:
+- hover over nodes  
+- see names and roles  
+- explore your immediate surroundings  
 
-1. Click **See full analysis** below any insight.
-2. Use the date range selector at the top to adjust the time period.
-3. Use the filter panel on the left to narrow results by exhibition, 
-   product category, or visitor type.
-
----
-
-## What to do if something looks wrong
-
-- If the dashboard shows no data after 10 minutes, check that the 
-  connection completed successfully under **Settings > Connections**.
-- If an insight looks incorrect, click the flag icon next to it to 
-  report it.
-- For any other issue, contact support at support@vitro.io.
+Access to the full network is limited.
 
 ---
 
+## 3. Claim your node
+
+To continue, you must claim your node.
+
+On the screen:
+- confirm your name  
+- verify your email  
+- confirm or edit your role in the project  
+
+Optional:
+- add a short line about your current focus  
+
+Submit to complete the claim.
+
+---
+
+## 4. Access the full network
+
+After claiming:
+- the map expands  
+- the full network becomes visible  
+- navigation is no longer restricted  
+
+You can now:
+- zoom out  
+- explore other nodes  
+- move through the network  
+
+---
+
+## 5. Add a project or organization
+
+To contribute to the network:
+
+- create a new node  
+- choose type: project or organization  
+- name it  
+- add participants  
+- assign roles  
+
+Submit the node.
+
+New people added will:
+- appear in the network  
+- receive an invite if they are not yet members  
+
+---
+
+## 6. Explore connections
+
+You can explore how you are connected to others.
+
+- select a person  
+- view the path connecting you through shared projects or organizations  
+- read the explanation of the connection  
+
+Connections are based only on shared participation.
+
+---
+
+## Result
+
+You are now part of the network.
+
+Your position is defined by the work you have participated in and the people connected through it.
