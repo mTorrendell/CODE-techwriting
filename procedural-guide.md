@@ -2,7 +2,7 @@
 
 ## How to enter and use Vínculo
 
-This guide walks you through the first interaction with Vínculo — from receiving an invite to exploring the network.
+This guide walks you through how to enter Vínculo, understand your position in the network, and begin contributing to it.
 
 ---
 
@@ -27,12 +27,12 @@ You will land directly on a map.
 
 On the map:
 - you appear as a node  
-- you are connected to a project or organization  
-- other people connected to that node are visible  
+- you are connected through a project or organization  
+- other participants are visible  
 
 At this stage, you can:
-- hover over nodes  
-- see names and roles  
+- hover slightly over nodes  
+- see some names and roles  
 - explore your immediate surroundings  
 
 Access to the full network is limited.
@@ -46,7 +46,7 @@ To continue, you must claim your node.
 On the screen:
 - confirm your name  
 - verify your email  
-- confirm or edit your role in the project  
+- confirm or edit your role  
 
 Optional:
 - add a short line about your current focus  
@@ -73,15 +73,15 @@ You can now:
 
 To contribute to the network:
 
-- create a new node  
-- choose type: project or organization  
-- name it  
-- add participants  
+- add a project or organization  
+- define what it is (e.g. interview, event, publication)  
+- write a short description of what happened  
+- name the people involved  
 - assign roles  
 
-Submit the node.
+Submit the shared work.
 
-New people added will:
+New participants will:
 - appear in the network  
 - receive an invite if they are not yet members  
 
@@ -92,8 +92,9 @@ New people added will:
 You can explore how you are connected to others.
 
 - select a person  
-- view the path connecting you through shared projects or organizations  
-- read the explanation of the connection  
+- view the trace between you  
+- follow the path through shared projects and organizations  
+- read the explanation of how the connection exists  
 
 Connections are based only on shared participation.
 
@@ -103,4 +104,4 @@ Connections are based only on shared participation.
 
 You are now part of the network.
 
-Your position is defined by the work you have participated in and the people connected through it.
+Your position is defined by the work you have participated in, and the people connected through it.
