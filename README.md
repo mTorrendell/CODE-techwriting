@@ -43,6 +43,12 @@ There are **no direct person-to-person edges**.
 
 ---
 
+## Key feature
+
+Vínculo can trace the path between two people through shared projects and organizations, and explain that connection in human language.
+
+---
+
 ## What makes it different
 
 - No profiles to build  
