@@ -76,6 +76,7 @@ To view it:
 - open `index.html` in any web browser  
 
 The prototype demonstrates how users explore connections through shared projects and organizations.
+The prototype is a conceptual artifact used to explore and validate the system design described in this documentation.
 
 ---
 
