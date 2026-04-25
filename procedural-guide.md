@@ -31,7 +31,7 @@ On the map:
 - other participants are visible  
 
 At this stage, you can:
-- hover slightly over nodes  
+- hover over nodes  
 - see some names and roles  
 - explore your immediate surroundings  
 
@@ -73,7 +73,7 @@ You can now:
 
 To contribute to the network:
 
-- add a project or organization  
+- record a project or organization  
 - define what it is (e.g. interview, event, publication)  
 - write a short description of what happened  
 - name the people involved  
@@ -104,4 +104,4 @@ Connections are based only on shared participation.
 
 You are now part of the network.
 
-Your position is defined by the work you have participated in, and the people connected through it.
+Your position in the network reflects the work you’ve taken part in and the people connected through it.
