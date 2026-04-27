@@ -83,7 +83,7 @@ The prototype is a conceptual artifact used to explore and validate the system d
 ## Documentation
 
 - **Docs folder**: [`/docs`](docs/)
-- [Proto Persona](docs/proto-persona.md) who this is for  
+- [Proto Persona](docs/personas.md) who this is for  
 - [User Story](docs/user-story.md) what they are trying to do  
 - [Procedural Guide](docs/procedural-guide.md) how to enter and use Vínculo  
 - [Conceptual Overview](docs/conceptual-overview.md) what Vínculo is and why it exists  
